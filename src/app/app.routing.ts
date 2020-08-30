@@ -23,7 +23,7 @@ export const AppRoutes: Routes = [{
     path: 'pages',
     loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)
   }]
-}, 
+},
 {
   path: 'admin',
   component: AdminPanelLayoutComponent,

@@ -2,14 +2,13 @@
    <div class="dashboard-nav">
       <div class="dashboard-nav-inner">
          <ul data-submenu-title="Main">
-            <li class="active"><a [routerLink]="['/admin/dashboard']"><i class="fa fa-tachometer"></i> Dashboard</a></li>
-            <li><a [routerLink]="['/admin/messages']"><i class="fa fa-inbox"></i> Messages <span class="nav-tag messages">2</span></a></li>
-            <li><a [routerLink]="['/admin/bookings']"><i class=" fa fa-calendar"></i> Bookings</a></li>
+            <li class="active"><a [routerLink]="['/admin/dashboard']"><i class="fa fa-tachometer"></i> Dashboard</a>
+            </li>
+            <!-- <li><a [routerLink]="['/admin/messages']"><i class="fa fa-inbox"></i> Messages <span class="nav-tag messages">2</span></a></li> -->
+            <li><a [routerLink]="['/admin/bookings']"><i class=" fa fa-calendar"></i> Postings</a></li>
          </ul>
          <ul data-submenu-title="Listings">
-            <li><a [routerLink]="['/admin/list']"><i class="fa fa-calendar-check-o"></i> My Listing</a></li>
-            <li><a [routerLink]="['/admin/reviews']"><i class="fa fa-star"></i> Reviews</a></li>
-            <li><a [routerLink]="['/admin/bookmarks']"><i class="fa fa-bookmark"></i> Bookmarks</a></li>
+            <li><a [routerLink]="['/admin/list']"><i class="fa fa-calendar-check-o"></i> My Listings</a></li>
             <li><a [routerLink]="['/admin/add-list']"><i class="fa fa-calendar-plus-o"></i> Add Listing</a></li>
          </ul>
          <ul data-submenu-title="Account">
@@ -20,6 +19,5 @@
    </div>
 </div>
 <a class="db-trigger" (click)="toggleMenu()">
-<i class="fa fa-reorder"></i>
+   <i class="fa fa-reorder"></i>
 </a>
-

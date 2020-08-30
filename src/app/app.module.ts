@@ -21,9 +21,14 @@ import { SignInComponent } from './core/SignInPopup/SignIn.component';
 
 import { AdminHeaderComponent } from './core/AdminHeader/AdminHeader.component';
 import { AdminSidebarComponent } from './core/AdminSidebar/AdminSidebar.component';
-
+import { environment } from '../environments/environment';
 import { MenuItems } from './core/Menu/menu-items';
 import { AdminMenuItems } from './core/AdminHeader/admin-menu-items';
+import { UserModule } from './user/user.module';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { SharedModule } from './shared/shared.module';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -49,12 +54,17 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
     BrowserAnimationsModule,
     DropzoneModule,
     FormsModule,
+    SharedModule,
     ReactiveFormsModule,
     RouterModule.forRoot(AppRoutes, { scrollPositionRestoration: 'enabled' }),
-    HttpClientModule
+    HttpClientModule,
+    UserModule
   ],
   providers: [
     MenuItems,

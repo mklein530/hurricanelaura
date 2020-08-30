@@ -1,7 +1,8 @@
 <div class="content p-0">
    <div class="login-wrapper">
       <div class="row m-0">
-         <div class="col-lg-4 side-banner" style="background-image:url('assets/images/bg-login.jpg');background-position: center center; background-size: cover;">
+         <div class="col-lg-4 side-banner"
+            style="background-image:url('assets/images/bg-login.jpg');background-position: center center; background-size: cover;">
             <div class="content px-5 text-center d-flex justify-content-center h-100">
                <div class="align-self-center">
                   <img src="assets/images/logo-white.png" class="mb-4" alt="">
@@ -31,12 +32,12 @@
                                  </span>
                                  <span class="btn-inner--text">Facebook</span>
                               </a>
-                              <a href="#" class="btn btn-neutral btn-icon">
+                              <button [appGoogleSignin]="" class="btn btn-neutral btn-icon">
                                  <span class="btn-inner--icon">
                                     <i class="fa fa-google"></i>
                                  </span>
                                  <span class="btn-inner--text">Google</span>
-                              </a>
+                              </button>
                            </div>
                         </div>
                         <div class="card-body px-lg-5 py-lg-5">
@@ -69,6 +70,12 @@
                               <div class="text-center">
                                  <button type="button" class="btn btn-primary mt-4">Sign in</button>
                               </div>
+                              <div class="text-center">
+                                 <button size="small" class="btn btn-secondary mt-4" (click)="routeToSignup()">
+                                    New user?
+                                 </button>
+                              </div>
+
                            </form>
                         </div>
                      </div>

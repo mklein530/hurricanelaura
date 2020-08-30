@@ -9,14 +9,18 @@ import { ForgotPasswordComponent } from './ForgotPassword/ForgotPassword.compone
 import { ComingSoonComponent } from './ComingSoon/ComingSoon.component';
 
 import { SessionRoutes } from './session.routing';
+import { UserModule } from '../user/user.module';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    UserModule,
+    MatButtonModule,
     RouterModule.forChild(SessionRoutes)
   ],
-  declarations: [ 
+  declarations: [
     LoginComponent,
     SignUpComponent,
     ForgotPasswordComponent,
@@ -24,4 +28,4 @@ import { SessionRoutes } from './session.routing';
   ]
 })
 
-export class SessionModule {}
+export class SessionModule { }
