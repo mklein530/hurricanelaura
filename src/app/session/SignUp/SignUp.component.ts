@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'signup',
@@ -6,14 +7,17 @@ import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/co
   styleUrls: ['./SignUp.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class SignUpComponent implements OnInit{
+export class SignUpComponent implements OnInit {
 
-   constructor(){}
+  constructor(protected router: Router) { }
 
-   ngOnInit(){}
+  ngOnInit() { }
 
-   ngAfterViewInit()
-   {
-      
-   }
+  ngAfterViewInit() {
+
+  }
+
+  routeToLogin() {
+    return this.router.navigate(['login'])
+  }
 }

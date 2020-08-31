@@ -16,7 +16,7 @@ interface Location {
    selector: 'admin-add-list',
    templateUrl: './AddList.component.html',
    styleUrls: ['./AddList.component.scss'],
-   encapsulation: ViewEncapsulation.None
+   // encapsulation: ViewEncapsulation.None
 })
 export class AddListComponent implements OnInit {
    form: FormGroup;
@@ -31,6 +31,8 @@ export class AddListComponent implements OnInit {
    buildForm() {
       return this.formBuilder.group({
          name: new FormControl('', [Validators.required]),
+         title: new FormControl('', [Validators.required]),
+         description: new FormControl('', [Validators.required]),
          email: new FormControl('', [Validators.email, Validators.required]),
          phoneNumber: new FormControl('', [Validators.pattern("[0-9]{0-10}")]),
          address: this.formBuilder.group({
@@ -42,7 +44,9 @@ export class AddListComponent implements OnInit {
             street: new FormControl(''),
             zip: new FormControl('')
          }),
-         website: new FormControl('')
+         website: new FormControl(''),
+         contractors: new FormControl(false),
+         volunteers: new FormControl(true)
       })
    }
    ngOnInit() {

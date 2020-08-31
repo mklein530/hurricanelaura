@@ -1,6 +1,6 @@
 <div class="main-wrapper">
 	<!--Title Bar -->
-	<title-bar  title="List Full Width" subtitle="Explore New Places"></title-bar>
+	<title-bar title="List Full Width" subtitle="Explore New Places"></title-bar>
 	<!-- Content  -->
 	<div class="content">
 		<div class="container">
@@ -27,7 +27,8 @@
 							</select>
 						</div>
 						<div class="col-lg-3 col-sm-6 text-right">
-							<a class="btn main-search-btn btn-radius btn-lg btn-primary text-white"><span class="btn-inner--text">Search</span></a>
+							<a class="btn main-search-btn btn-radius btn-lg btn-primary text-white"><span
+									class="btn-inner--text">Search</span></a>
 						</div>
 					</div>
 				</div>
@@ -38,8 +39,9 @@
 						<div class="col-md-6">
 							<!-- Layout Switcher -->
 							<div class="layout-switcher">
-								<a [routerLink]="['/listing/grid/full-width']" class="grid"><span class="round-pill d-block"><i class="fa fa-th"></i></span></a>
-								<a  class="list active"><span class="round-pill d-block"><i class="fa fa-align-justify"></i></span></a>
+								<a [routerLink]="['/listing/grid/full-width']" class="grid"><span class="round-pill d-block"><i
+											class="fa fa-th"></i></span></a>
+								<a class="list active"><span class="round-pill d-block"><i class="fa fa-align-justify"></i></span></a>
 							</div>
 						</div>
 					</div>
@@ -48,20 +50,35 @@
 						<!-- Listing Item -->
 						<div class="col-lg-12 col-md-12" *ngFor="let list of Data">
 							<div class="listing-item-container list-layout mb-4">
-								<div  class="listing-item">
+								<div class="listing-item">
 									<!-- Image -->
 									<div class="listing-item-image">
-									  <a [routerLink]="['/listing/detail/version2']"><img src="{{list.image}}" alt=""></a> 
+										<a [routerLink]="['/listing/detail/version2']"><img class="item-image" [src]="list.image"
+												alt=""></a>
 									</div>
 									<!-- Content -->
 									<div class="listing-item-content">
 										<span class="badge badge-pill list-banner badge-success text-uppercase">{{list.badge}}</span>
 										<div class="listing-item-inner">
-												<DirectlistRating [rate]="list.rating" [review]="list.review"></DirectlistRating>
-										<a [routerLink]="['/listing/detail/version2']">  <h3>{{list.title}}</h3></a> 
+											<DirectlistRating [rate]="list.rating" [review]="list.review"></DirectlistRating>
+											<a [routerLink]="['/listing/detail/version2']">
+												<h3>{{list.title}}</h3>
+											</a>
 											<span><small>{{list.address}}</small></span>
-											<div class="mt-3"><span class="badge badge-pill badge-primary text-uppercase">{{list.category}}</span></div>
-										  
+											<div class="mt-3"><span
+													class="badge badge-pill badge-primary text-uppercase">{{list.category}}</span>
+											</div>
+											<div *ngIf="list.contractors || list.volunteers" class="col-12">
+												<div class="row">
+													<div *ngIf="list.contractors" class="mr-2"><span
+															class="badge badge-pill badge-primary text-uppercase">{{list.contractors + ' Contractors'}}</span>
+													</div>
+													<div *ngIf="list.volunteers"><span
+															class="badge badge-pill badge-primary text-uppercase">{{list.volunteers + ' Volunteers'}}</span>
+													</div>
+												</div>
+
+											</div>
 										</div>
 										<span class="round-pill like-banner d-block bg-primary"><i class="fa fa-heart-o"></i></span>
 									</div>
@@ -79,5 +96,3 @@
 		</div>
 	</div>
 </div>
-	
-	

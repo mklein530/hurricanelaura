@@ -48,8 +48,13 @@
 	overflow: hidden;
 	border-radius: 4px 0 0 4px;
 	position: relative;
+	object-fit: contain;
 }
 
+.item-image {
+	max-width: 100%;
+	max-height: 100%;
+}
 
 .listing-item-container.list-layout span.like-icon {
 	bottom: 50%;
