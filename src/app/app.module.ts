@@ -28,7 +28,9 @@ import { UserModule } from './user/user.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { SharedModule } from './shared/shared.module';
+import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -56,11 +58,13 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireStorageModule,
     AngularFireAuthModule,
     BrowserAnimationsModule,
     DropzoneModule,
     FormsModule,
     SharedModule,
+    NgxMatMomentModule,
     ReactiveFormsModule,
     RouterModule.forRoot(AppRoutes, { scrollPositionRestoration: 'enabled' }),
     HttpClientModule,

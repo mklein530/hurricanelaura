@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LoginComponent } from './Login/Login.component';
 import { SignUpComponent } from './SignUp/SignUp.component';
@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     FormsModule,
     UserModule,
+    ReactiveFormsModule,
     MatButtonModule,
     RouterModule.forChild(SessionRoutes)
   ],

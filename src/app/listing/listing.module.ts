@@ -7,7 +7,7 @@ import { NouisliderModule } from 'ng2-nouislider';
 
 import { ListWithSidebarComponent } from './ListWithSidebar/ListWithSidebar.component';
 import { ListFullWidthComponent } from './ListFullWidth/ListFullWidth.component';
-import { ListFullWidthMapComponent } from './ListFullWidthMap/ListFullWidthMap.component'; 
+import { ListFullWidthMapComponent } from './ListFullWidthMap/ListFullWidthMap.component';
 
 import { GridWithSidebarComponent } from './GridWithSidebar/GridWithSidebar.component';
 import { GridFullWidthComponent } from './GridFullWidth/GridFullWidth.component';
@@ -29,6 +29,8 @@ import { SidebarLayoutThreeComponent } from './SidebarLayoutThree/SidebarLayoutT
 import { ListingRoutes } from './listing.routing';
 
 import { GlobalModule } from '../globalFrontendComponents/global.module';
+import { SharedModule } from '../shared/shared.module';
+import { BookingComponent } from '../pages/Booking/Booking.component';
 
 
 @NgModule({
@@ -37,26 +39,30 @@ import { GlobalModule } from '../globalFrontendComponents/global.module';
     GlobalModule,
     SlickCarouselModule,
     NouisliderModule,
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyBtdO5k6CRntAMJCF-H5uZjTCoSGX95cdk'}),
+    SharedModule,
+    AgmCoreModule.forRoot({ apiKey: 'AIzaSyBtdO5k6CRntAMJCF-H5uZjTCoSGX95cdk' }),
     RouterModule.forChild(ListingRoutes),
   ],
-  declarations: [ 
-     ListWithSidebarComponent,
-     ListFullWidthComponent,
-     ListFullWidthMapComponent,
-     GridWithSidebarComponent,
-     GridFullWidthComponent,
-     GridFullWidthMapComponent,
-     HalfScreenMapListComponent,
-     HalfScreenMapGridComponent,
-     ListingDetailOneComponent,
-     ListingDetailTwoComponent,
-     GallerySliderComponent,
-     SmallGallerySliderComponent,
-     SidebarLayoutOneComponent,
-     SidebarLayoutTwoComponent,
-     SidebarLayoutThreeComponent
-   ]
+  declarations: [
+    ListWithSidebarComponent,
+    ListFullWidthComponent,
+    ListFullWidthMapComponent,
+    GridWithSidebarComponent,
+    GridFullWidthComponent,
+    GridFullWidthMapComponent,
+    HalfScreenMapListComponent,
+    HalfScreenMapGridComponent,
+    ListingDetailOneComponent,
+    ListingDetailTwoComponent,
+    GallerySliderComponent,
+    SmallGallerySliderComponent,
+    SidebarLayoutOneComponent,
+    SidebarLayoutTwoComponent,
+    SidebarLayoutThreeComponent
+  ],
+  entryComponents: [
+    BookingComponent
+  ]
 })
 
-export class ListingModule {}
+export class ListingModule { }
