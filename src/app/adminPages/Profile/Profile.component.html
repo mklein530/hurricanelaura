@@ -1,89 +1,142 @@
 <div class="dashboard-content">
-   <div class="row">
-      <!-- Profile -->
-      <div class="col-lg-6 col-md-12">
-         <div class="dashboard-list-box mb-5">
-            <div class="dashboard-list-box-static">
-               <h4 class="mb-3">Profile Details</h4>
-               <!-- Avatar -->
-               <!-- Details -->
-               <div class="my-profile">
-                  <div>
-                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="validatedCustomFile" required>
-                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                        <div class="invalid-feedback">Example invalid custom file feedback</div>
-                     </div>
-                  </div>
-                  <div class="mt-3">
-                     <div class="form-group">
-                        <input type="text" placeholder="First Name" class="form-control form-control-alternative">
-                     </div>
-                  </div>
-                  <div>
-                     <div class="form-group">
-                        <input type="text" placeholder="Last Name" class="form-control form-control-alternative">
-                     </div>
-                  </div>
-                  <div>
-                     <div class="form-group">
-                        <input type="text" placeholder="State" class="form-control form-control-alternative">
-                     </div>
-                  </div>
-                  <div>
-                     <div class="form-group">
-                        <input type="text" placeholder="City" class="form-control form-control-alternative">
-                     </div>
-                  </div>
-                  <div>
-                     <div class="form-group">
-                        <input type="text" placeholder="Phone" class="form-control form-control-alternative">
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <input type="text" placeholder="E-mail" class="form-control form-control-alternative">
-                  </div>
-                  <div class="form-group">
-                     <input type="text" placeholder="Twitter" class="form-control form-control-alternative">
-                  </div>
-                  <div class="form-group">
-                     <input type="text" placeholder="Facebook" class="form-control form-control-alternative">
-                  </div>
-                  <div class="form-group">
-                     <input type="text" placeholder="Google +" class="form-control form-control-alternative">
-                  </div>
-                  <label>About</label>
-                  <textarea class="form-control form-control-alternative mb-4" name="notes" id="notes" cols="30" rows="10">Maecenas quis consequat libero, a feugiat eros. Nunc ut lacinia tortor morbi ultricies laoreet ullamcorper phasellus semper</textarea>
-               </div>
-               <button class="btn btn-primary">Save</button>
-            </div>
-         </div>
-      </div>
-      <!-- Change Password -->
-      <div class="col-lg-6 col-md-12">
-         <div class="dashboard-list-box mb-5">
-            <div class="dashboard-list-box-static">
-               <h4 class="mb-3">Change Password</h4>
-               <!-- Change Password -->
-               <div class="my-profile">
-                  <div class="form-group">
-                     <input type="password" placeholder="Current Password" class="form-control form-control-alternative">
-                  </div>
-                  <div class="form-group">
-                     <input type="password" placeholder="New Password" class="form-control form-control-alternative">
-                  </div>
-                  <div class="form-group">
-                     <input type="password" placeholder="Retype New Password" class="form-control form-control-alternative">
-                  </div>
-                  <button class="btn btn-primary">Change Password</button>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- Copyrights -->
-      <div class="col-md-12">
-         <div class="copyrights">© 2020 DirectList. All Rights Reserved.</div>
-      </div>
-   </div>
-</div>
+  <div class="row">
+    <!-- Profile -->
+    <div class="col-lg-6 col-md-12">
+      <div class="dashboard-list-box mb-5">
+        <div class="dashboard-list-box-static">
+          <h4 class="mb-3">Profile Details</h4>
+          <!-- Avatar -->
+          <!-- Details -->
+          <div class="max-img">
+            <img [src]="form.get('avatar').value" class="img-fluid rounded-circle shadow-lg mr-1 profile-image" alt="" />
+          </div>
 
+          <div [formGroup]="form" class="my-profile">
+            <div class="row col-12">
+              <div class="custom-file col-10">
+                <input (change)="handleFileInput($event.target.files)" type="file" class="custom-file-input" id="validatedCustomFile" />
+                <label class="custom-file-label" for="validatedCustomFile">Upload your photo...</label>
+                <div class="invalid-feedback">Example invalid custom file feedback</div>
+              </div>
+            </div>
+            <div class="mt-3">
+              <div class="form-group">
+                <input formControlName="firstName" type="text" placeholder="First Name" class="form-control form-control-alternative" />
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+                <input formControlName="lastName" type="text" placeholder="Last Name" class="form-control form-control-alternative" />
+              </div>
+            </div>
+            <!-- <div>
+              <div class="form-group">
+                <input type="text" placeholder="State" class="form-control form-control-alternative" />
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+                <input type="text" placeholder="City" class="form-control form-control-alternative" />
+              </div>
+            </div> -->
+            <div>
+              <div class="form-group">
+                <input formControlName="phoneNumber" type="text" placeholder="Phone" class="form-control form-control-alternative" />
+              </div>
+            </div>
+            <div class="form-group">
+              <input formControlName="email" type="text" placeholder="E-mail" class="form-control form-control-alternative" />
+            </div>
+            <div class="form-group">
+              <input
+                [value]="address"
+                type="text"
+                placeholder="Address"
+                class="form-control form-control-alternative"
+                ngx-google-places-autocomplete
+                #placesRef="ngx-places"
+                (onAddressChange)="handleAddressChange($event)"
+              />
+            </div>
+            <div class="form-group">
+              <input formControlName="facebook" type="text" placeholder="Facebook" class="form-control form-control-alternative" />
+            </div>
+            <div class="form-group">
+              <input formControlName="website" type="text" placeholder="Website" class="form-control form-control-alternative" />
+            </div>
+            <label>About</label>
+            <textarea formControlName="about" class="form-control form-control-alternative mb-4" name="notes" id="notes" cols="30" rows="10">
+Tell us about yourself!</textarea
+            >
+          </div>
+          <button (keyup.enter)="updateUser()" (click)="updateUser()" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+    <!-- <h5> You are looking for: </h5>
+               <div class="row with-forms">
+                  <div class="col-md-3">
+                     <label for="check-b cb-label">Volunteers</label>
+                     <span class="pt-3">
+                        <input id="check-c" type="checkbox" name="volunteers" formControlName="volunteers">
+                     </span>
+
+                  </div>
+                  <div class="col-md-3">
+                     <label for="check-b cb-label">Contractors</label>
+                     <input id="check-c pt-3" type="checkbox" name="contractors" formControlName="contractors">
+                  </div>
+               </div> -->
+
+    <!-- Volunteer status -->
+    <div [formGroup]="form" class="col-lg-6 col-md-12">
+      <div class="dashboard-list-box mb-5">
+        <div class="dashboard-list-box-static">
+          <h4 class="mb-3">Helper Status</h4>
+          <!-- Change Password -->
+          <div class="my-profile">
+            <h5>You are available to help as a:</h5>
+            <div class="row with-forms">
+              <div class="col-md-3">
+                <label for="check-b cb-label">Volunteer</label>
+                <span class="pt-3 ml-2">
+                  <input id="check-c" type="checkbox" name="volunteer" formControlName="isVolunteer" />
+                </span>
+              </div>
+              <div class="col-md-3">
+                <label for="check-b cb-label">Contractor</label>
+                <span class="pt-3 ml-2">
+                  <input id="check-c" type="checkbox" name="contractor" formControlName="isContractor" />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Change Password -->
+    <!-- <div class="col-lg-6 col-md-12">
+      <div class="dashboard-list-box mb-5">
+        <div class="dashboard-list-box-static">
+          <h4 class="mb-3">Change Password</h4>
+          <div class="my-profile">
+            <div class="form-group">
+              <input type="password" placeholder="Current Password" class="form-control form-control-alternative" />
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="New Password" class="form-control form-control-alternative" />
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Retype New Password" class="form-control form-control-alternative" />
+            </div>
+            <button class="btn btn-primary">Change Password</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- Copyrights -->
+    <div class="col-md-12">
+      <div class="copyrights">© 2020 DirectList. All Rights Reserved.</div>
+    </div>
+  </div>
+</div>

@@ -1,13 +1,27 @@
-.font-aw{
-    li{
-        text-align: center;
-        i{
-            font-size: 22px;
-        }
-        margin-bottom: 2rem;
-        margin-top: 1rem;
-        span{
-            display: block;
-        }
+.font-aw {
+  li {
+    text-align: center;
+    i {
+      font-size: 22px;
     }
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+    span {
+      display: block;
+    }
+  }
+}
+
+.profile-image {
+  height: 4.5rem;
+  width: 4.5rem;
+}
+
+.max-img {
+  max-width: 20rem;
+  max-height: 40rem;
+  position: absolute;
+  right: 5rem;
+  top: 2.9rem;
+  object-fit: cover;
 }

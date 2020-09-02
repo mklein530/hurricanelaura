@@ -1,5 +1,5 @@
-import { Address } from "./address";
-import { BaseEntity } from "./base-entity";
+import { Address } from './address';
+import { BaseEntity } from './base-entity';
 
 export class User extends BaseEntity {
   uid: string = '';
@@ -17,4 +17,6 @@ export class User extends BaseEntity {
   address: Address = {};
   website: string = '';
   password: string;
+  providerId: string;
+  about: string = '';
 }

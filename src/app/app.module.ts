@@ -31,12 +31,13 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { SharedModule } from './shared/shared.module';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
+import { AuthGuard } from './auth.guard';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
   url: 'https://httpbin.org/post',
   maxFilesize: 50,
-  acceptedFiles: 'image/*'
+  acceptedFiles: 'image/*',
 };
 
 @NgModule({
@@ -52,7 +53,7 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     SignInComponent,
 
     AdminHeaderComponent,
-    AdminSidebarComponent
+    AdminSidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,16 +69,17 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     ReactiveFormsModule,
     RouterModule.forRoot(AppRoutes, { scrollPositionRestoration: 'enabled' }),
     HttpClientModule,
-    UserModule
+    UserModule,
   ],
   providers: [
     MenuItems,
     AdminMenuItems,
+    AuthGuard,
     {
       provide: DROPZONE_CONFIG,
-      useValue: DEFAULT_DROPZONE_CONFIG
-    }
+      useValue: DEFAULT_DROPZONE_CONFIG,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

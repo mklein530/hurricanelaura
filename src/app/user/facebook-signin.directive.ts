@@ -2,13 +2,13 @@ import { Directive, HostListener } from '@angular/core';
 import { UserService } from '../services/user-service';
 
 @Directive({
-  selector: '[appGoogleSignin]',
+  selector: '[appFacebookSignin]',
 })
-export class GoogleSigninDirective {
+export class FacebookSigninDirective {
   constructor(private userService: UserService) {}
 
   @HostListener('click')
   onclick() {
-    this.userService.googleSignIn();
+    this.userService.facebookSignIn();
   }
 }
