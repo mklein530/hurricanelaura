@@ -1,10 +1,14 @@
 import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
-import {
-   DropzoneComponent, DropzoneDirective,
-   DropzoneConfigInterface
-} from 'ngx-dropzone-wrapper';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { StorageService } from '../../services/storage.service';
+import { SnackService } from '../../services/snack-service';
+import { getAddressDisplay, getAddressFromValue } from '../../services/form-util';
+import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 import { getPlaceAsAddress } from '../../../util/address';
+import { PostService } from '../../services/post.service';
+import { Posting } from '../../models/posting';
+import { UserService } from '../../services/user-service';
+import { geohash } from '../../services/geolocation';
+
 declare var $: any;
 
 interface Location {
@@ -18,40 +22,27 @@ interface Location {
    styleUrls: ['./AddList.component.scss'],
    // encapsulation: ViewEncapsulation.None
 })
-export class AddListComponent implements OnInit {
+export class AddListComponent implements OnInit, AfterViewInit {
    form: FormGroup;
-   // options = {
-   //    types: [],
-   //    componentRestrictions: {
-   //       country: 'UA'
-   //    }
-   // }
-   constructor(protected formBuilder: FormBuilder) { }
 
-   buildForm() {
-      return this.formBuilder.group({
-         name: new FormControl('', [Validators.required]),
-         title: new FormControl('', [Validators.required]),
-         description: new FormControl('', [Validators.required]),
-         email: new FormControl('', [Validators.email, Validators.required]),
-         phoneNumber: new FormControl('', [Validators.pattern("[0-9]{0-10}")]),
-         address: this.formBuilder.group({
-            city: new FormControl(''),
-            country: new FormControl(''),
-            lat: new FormControl(null),
-            lng: new FormControl(null),
-            state: new FormControl(''),
-            street: new FormControl(''),
-            zip: new FormControl('')
-         }),
-         website: new FormControl(''),
-         contractors: new FormControl(false),
-         volunteers: new FormControl(true)
-      })
-   }
-   ngOnInit() {
-      this.form = this.buildForm();
-   }
+   constructor(protected postService: PostService, protected userService: UserService,
+      protected snackService: SnackService, protected storageService: StorageService) { }
+   // title: string = '';
+   // descripton: string = '';
+   // // @ts-ignore
+   // address: Address = {};
+   // price: string = '';
+   // wantVolunteers: boolean = true;
+   // wantContractors: boolean = false;
+   // numVolunteers: number = 0;
+   // numContractors: number = 0;
+   // name: string = '';
+   // email: string = '';
+   // website: string = '';
+   // phoneNumber: string = '';
+   // facebook: string = '';
+   // images: string[] = [];
+   // geohash: string = '';
 
    ngAfterViewInit() {
       $(".add-listing-section").each(function () {
@@ -74,12 +65,64 @@ export class AddListComponent implements OnInit {
       });
    }
 
+   ngOnInit() {
+      this.form = this.postService.buildForm({ ...new Posting(), id: this.postService.createId() }, '', Posting);
+      this.buildAddress(getAddressFromValue(this.userService.user.address, 'address'));
+   }
+
+   get address() {
+      const form = this.form.value;
+      if (form.address) {
+         return getAddressDisplay(form.address.street, form.address.city, form.address.state, form.address.zip);
+      }
+   }
+
+   get coords() {
+      const address = this.form.get('address');
+      const coords = { lat: null, lng: null };
+      if (address && address.get('lat') && address.get('lng')) {
+         return { lat: address.get('lat').value, lng: address.get('lng').value };
+      }
+      return coords;
+   }
+
+   async savePosting() {
+      try {
+         this.form.get('geohash').setValue(geohash(this.coords.lat, this.coords.lng));
+         await this.postService.createPost(this.form.value, this.form.get('id').value);
+         this.snackService.showMessage('Successfully created post!');
+      } catch (error) {
+         this.snackService.showMessage('Something went wrong.');
+      }
+   }
+
+   buildAddress(address) {
+      Object.keys(address).forEach((key) => {
+         const addressControl = this.form.get('address');
+         if (addressControl.get(key)) {
+            this.form.get('address').get(key).setValue(address[key]);
+         } else {
+            (<FormGroup>addressControl).addControl(key, new FormControl(address[key]));
+         }
+      });
+   }
+
    handleAddressChange(event) {
       const result = getPlaceAsAddress(event);
       if (result) {
-         Object.keys(result).forEach(key => {
-            this.form.get('address').get(key).setValue(result[key]);
-         });
+         this.buildAddress(result);
       }
+   }
+
+   get images() {
+      return this.form.get('images') as FormArray;
+   }
+
+   async handleFileInput(file: File) {
+      try {
+         const response = await this.storageService.uploadPostImage(file, this.form.get('id').value, file.name);
+         const downloadUrl = await response.ref.getDownloadURL();
+         this.images.push(new FormControl(downloadUrl));
+      } catch (error) { }
    }
 }

@@ -44,13 +44,13 @@
                   <div class="col-md-3">
                      <label for="check-b cb-label">Volunteers</label>
                      <span class="pt-3">
-                        <input id="check-c" type="checkbox" name="volunteers" formControlName="volunteers">
+                        <input id="check-c" type="checkbox" name="wantVolunteers" formControlName="wantVolunteers">
                      </span>
 
                   </div>
                   <div class="col-md-3">
                      <label for="check-b cb-label">Contractors</label>
-                     <input id="check-c pt-3" type="checkbox" name="contractors" formControlName="contractors">
+                     <input id="check-c pt-3" type="checkbox" name="wantContractors" formControlName="wantContractors">
                   </div>
                   <!-- <div class="col-md-4">
                      <h5 class="twitter-input"><i class="fa fa-twitter"></i> Twitter <span>(optional)</span></h5>
@@ -143,7 +143,8 @@
                   <h3>Images</h3>
                </div>
                <!-- Dropzone -->
-               <dropzone class="dropzone-container" [message]="'Click or drag images here to upload'"></dropzone>
+               <dropzone (complete)="handleFileInput($event)" class="dropzone-container"
+                  [message]="'Click or drag images here to upload'"></dropzone>
             </div>
             <!-- Section / End -->
 
@@ -155,6 +156,7 @@
 
             <!-- Section / End -->
             <a href="#" class="btn btn-danger">Preview <i class="fa fa-arrow-circle-right"></i></a>
+            <button (click)="savePosting()" class="btn btn-primary">Create Post</button>
          </div>
       </div>
       <!-- Copyrights -->

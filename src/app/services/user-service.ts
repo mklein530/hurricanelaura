@@ -211,7 +211,7 @@ export class UserService extends BaseFirestoreService<User> {
       const result = await this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
       let user = await this.getUser(result.user.uid);
       if (!user) {
-        user = this.convertFirebaseUser(user, result.user);
+        user = this.convertFirebaseUser(new User(), result.user);
         await this.create(JSON.parse(JSON.stringify(user)), user.uid);
       }
       this.user = user;

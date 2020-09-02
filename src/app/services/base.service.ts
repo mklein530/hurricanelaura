@@ -30,6 +30,11 @@ export default class BaseFirestoreService<T extends BaseEntity> {
     return doc.exists && (doc.data() as T);
   }
 
+  async getAll() {
+    const result = await this.collection.get().toPromise();
+    return result.docs.length ? result.docs.map(doc => doc.data() as T) : [];
+  }
+
   async getByAttribute(attribute: string, operator: firestore.WhereFilterOp, value: any) {
     const result = await this.collection.ref.where(attribute, operator, value).get();
     return result.docs.length ? result.docs.map((doc) => doc.data() as T) : [];
@@ -45,7 +50,7 @@ export default class BaseFirestoreService<T extends BaseEntity> {
 
   async create(object: T, _id?: string) {
     const id = _id ? _id : this.createId();
-    return this.collection.doc(id).set(object);
+    return this.collection.doc(id).set({ ...object, id });
   }
 
   async add(object: T) {
@@ -89,5 +94,16 @@ export default class BaseFirestoreService<T extends BaseEntity> {
       this.buildFormControl(controls, defaultValues, key, validationKey);
     });
     return this.formBuilder.group(controls);
+  }
+
+  buildAddress(address: any, form: FormGroup) {
+    Object.keys(address).forEach((key) => {
+      const addressControl = form.get('address');
+      if (addressControl.get(key)) {
+        form.get('address').get(key).setValue(address[key]);
+      } else {
+        (<FormGroup>addressControl).addControl(key, new FormControl(address[key]));
+      }
+    });
   }
 }
