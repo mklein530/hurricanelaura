@@ -1,8 +1,12 @@
-import { Component, OnInit, AfterViewInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewEncapsulation, ViewChild, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import * as moment from 'moment';
-import { MatDialogRef } from '@angular/material/dialog'
-
+import { MatDialogRef, MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { PostService } from 'src/app/services/post.service';
+import { UserService } from 'src/app/services/user-service';
+import { ResponseService } from 'src/app/services/response.service';
+import { Response } from 'src/app/models/response';
+import { initializeApp } from 'firebase';
 @Component({
   selector: 'booking',
   templateUrl: './Booking.component.html',
@@ -16,7 +20,7 @@ export class BookingComponent implements OnInit {
   //   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   //   <ngx-mat-datetime-picker #picker [showSpinners]="showSpinners" [showSeconds]="showSeconds"
   //      [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond"
-  //      [touchUi]="touchUi" [color]="color" [enableMeridian]="enableMeridian" 
+  //      [touchUi]="touchUi" [color]="color" [enableMeridian]="enableMeridian"
   //      [disableMinute]="disableMinute" [hideTime]="hideTime">
   //   </ngx-mat-datetime-picker>
   // </mat-form-field>
@@ -35,12 +39,23 @@ export class BookingComponent implements OnInit {
   public color = 'primary';
   @ViewChild('picker') picker: any;
 
-  constructor(protected formBuilder: FormBuilder, protected matDialogRef: MatDialogRef<any>) { }
+  constructor(
+    protected formBuilder: FormBuilder,
+    protected matDialog: MatDialogRef<any>,
+    protected postService: PostService,
+    protected userService: UserService,
+    protected responseService: ResponseService,
+    @Inject(MAT_DIALOG_DATA) protected data: any
+  ) {}
 
   ngOnInit() {
-    this.form = this.formBuilder.group({
-      date: new FormControl(new Date())
-    });
+    const initialValues: Response = {
+      ...new Response(),
+      responder: this.userService.user,
+      createdAt: new Date().getTime(),
+      postId: this.data.post.id,
+    };
+    this.form = this.responseService.buildForm(initialValues, '', Response);
   }
 
   ngAfterViewInit() {
@@ -57,14 +72,13 @@ export class BookingComponent implements OnInit {
       }
       event.target.parentNode.parentNode.classList.add('payment-tab-active');
     }
-
   }
 
   close() {
-    this.matDialogRef.close();
+    this.matDialog.close();
   }
 
   respond() {
-    this.matDialogRef.close(this.form);
+    this.matDialog.close(this.form.value);
   }
 }

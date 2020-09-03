@@ -1,7 +1,7 @@
 <div class="sticky">
-   <!-- Book Now -->
-   <div class="boxed-widget booking-widget">
-      <!-- <div>
+  <!-- Book Now -->
+  <div class="boxed-widget booking-widget">
+    <!-- <div>
          <div class="form-group focused">
             <div class="input-group">
                <div class="input-group-prepend">
@@ -10,24 +10,24 @@
             </div>
          </div>
       </div> -->
-      <!-- Book Now -->
-      <button (click)="openResponseModal()" class="btn btn-1 btn-primary d-block w-100">Respond Now</button>
-   </div>
-   <!-- Book Now / End -->
-   <div class="boxed-widget bg-secondary mt-4 text-center p-4">
-      <h4 class="mb-4">Owner</h4>
-      <div class="mb-3">
-         <div class="mb-2">
-            <img class="img-fluid rounded-circle shadow-lg" width="80" height="80" src="assets/images/thumb-1.jpg">
-         </div>
-         <div class="">
-            <h5 class="text-primary">Victoria Benson</h5>
-         </div>
+    <!-- Book Now -->
+    <button (click)="openResponseModal()" class="btn btn-1 btn-primary d-block w-100">Respond Now</button>
+  </div>
+  <!-- Book Now / End -->
+  <div class="boxed-widget bg-secondary mt-4 text-center p-4">
+    <h4 class="mb-4">Owner</h4>
+    <div class="mb-3">
+      <div class="mb-2">
+        <img class="img-fluid rounded-circle shadow-lg" width="80" height="80" [src]="avatar" />
       </div>
-      <ul class="listing-details-sidebar">
-         <li><i class="fa fa-phone"></i> (123) 123-456</li>
-         <li><i class="fa fa-external-link"></i> http://example.com</li>
-         <li><i class="fa fa-envelope-o"></i>victoria@victoria.com</li>
-      </ul>
-   </div>
+      <div class="">
+        <h5 class="text-primary">{{ post.name }}</h5>
+      </div>
+    </div>
+    <ul class="listing-details-sidebar">
+      <li><i class="fa fa-phone"></i>{{ post.phoneNumber }}</li>
+      <li><i class="fa fa-external-link"></i>{{ post.website }}</li>
+      <li><i class="fa fa-envelope-o"></i>{{ post.email }}</li>
+    </ul>
+  </div>
 </div>

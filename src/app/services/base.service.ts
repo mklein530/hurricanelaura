@@ -7,7 +7,7 @@ import { FormBuilder, FormArray, FormControl, FormGroup } from '@angular/forms';
 export default class BaseFirestoreService<T extends BaseEntity> {
   collection: AngularFirestoreCollection<T>;
   _user: User;
-  entity: any;
+  entity: T;
 
   constructor(protected firestore: AngularFirestore, protected collectionName: string, protected formBuilder: FormBuilder) {
     this.collection = firestore.collection(collectionName);
@@ -32,7 +32,7 @@ export default class BaseFirestoreService<T extends BaseEntity> {
 
   async getAll() {
     const result = await this.collection.get().toPromise();
-    return result.docs.length ? result.docs.map(doc => doc.data() as T) : [];
+    return result.docs.length ? result.docs.map((doc) => doc.data() as T) : [];
   }
 
   async getByAttribute(attribute: string, operator: firestore.WhereFilterOp, value: any) {

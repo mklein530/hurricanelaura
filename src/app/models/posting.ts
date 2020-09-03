@@ -1,5 +1,6 @@
-import { Address } from "./address";
-import { BaseEntity } from "./base-entity";
+import { Address } from './address';
+import { BaseEntity } from './base-entity';
+import { User } from './user';
 
 export class Posting extends BaseEntity {
   id: string = '';
@@ -8,6 +9,7 @@ export class Posting extends BaseEntity {
   // @ts-ignore
   address: Address = {};
   price: string = '';
+  done = false;
   wantVolunteers: boolean = true;
   wantContractors: boolean = false;
   numVolunteers: number = 0;
@@ -19,4 +21,6 @@ export class Posting extends BaseEntity {
   facebook: string = '';
   images: string[] = [];
   geohash: string = '';
+  // @ts-ignore
+  user: User = {};
 }

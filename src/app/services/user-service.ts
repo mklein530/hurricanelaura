@@ -208,6 +208,8 @@ export class UserService extends BaseFirestoreService<User> {
 
   async googleSignIn() {
     try {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      ['email', 'profile'].forEach((scope) => provider.addScope(scope));
       const result = await this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
       let user = await this.getUser(result.user.uid);
       if (!user) {
@@ -224,7 +226,7 @@ export class UserService extends BaseFirestoreService<User> {
   async facebookSignIn() {
     try {
       const provider = new firebase.auth.FacebookAuthProvider();
-      ['user_link', 'email'].forEach((scope) => provider.addScope(scope));
+      ['email'].forEach((scope) => provider.addScope(scope));
       const result = await this.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
       let user = await this.getUser(result.user.uid);
       if (!user) {

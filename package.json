@@ -30,6 +30,8 @@
     "core-js": "^3.6.5",
     "counterup": "^1.0.2",
     "firebase": "^7.19.1",
+    "haversine": "^1.1.1",
+    "haversine-distance": "^1.2.1",
     "jquery": "^3.5.1",
     "jquery-ui": "^1.12.1",
     "jquery.countdown": "^1.2.8",
