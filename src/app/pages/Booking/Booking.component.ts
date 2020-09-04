@@ -39,23 +39,10 @@ export class BookingComponent implements OnInit {
   public color = 'primary';
   @ViewChild('picker') picker: any;
 
-  constructor(
-    protected formBuilder: FormBuilder,
-    protected matDialog: MatDialogRef<any>,
-    protected postService: PostService,
-    protected userService: UserService,
-    protected responseService: ResponseService,
-    @Inject(MAT_DIALOG_DATA) protected data: any
-  ) {}
+  constructor(protected matDialog: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) protected data: any) {}
 
   ngOnInit() {
-    const initialValues: Response = {
-      ...new Response(),
-      responder: this.userService.user,
-      createdAt: new Date().getTime(),
-      postId: this.data.post.id,
-    };
-    this.form = this.responseService.buildForm(initialValues, '', Response);
+    this.form = this.data.form;
   }
 
   ngAfterViewInit() {

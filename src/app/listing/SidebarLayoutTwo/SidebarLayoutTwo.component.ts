@@ -4,6 +4,8 @@ import { BookingComponent } from '../../pages/Booking/Booking.component';
 import { Posting } from 'src/app/models/posting';
 import { ResponseService } from 'src/app/services/response.service';
 import { SnackService } from 'src/app/services/snack-service';
+import { UserService } from 'src/app/services/user-service';
+import { Response } from 'src/app/models/response';
 @Component({
   selector: 'sidebar-layout-two',
   templateUrl: './SidebarLayoutTwo.component.html',
@@ -14,7 +16,12 @@ export class SidebarLayoutTwoComponent implements OnInit {
   @Input()
   post: Posting;
 
-  constructor(protected modal: MatDialog, protected responseService: ResponseService, protected snackService: SnackService) {}
+  constructor(
+    protected modal: MatDialog,
+    protected responseService: ResponseService,
+    protected snackService: SnackService,
+    protected userService: UserService
+  ) {}
 
   ngOnInit() {}
 
@@ -28,9 +35,15 @@ export class SidebarLayoutTwoComponent implements OnInit {
   }
 
   openResponseModal() {
+    const initialValues: Response = {
+      ...new Response(),
+      responder: this.userService.user,
+      createdAt: new Date().getTime(),
+      postId: this.post.id,
+    };
     const ref = this.modal.open(BookingComponent, {
       data: {
-        post: this.post,
+        form: this.responseService.buildForm(initialValues, '', Response),
       },
       height: '30rem',
       width: '50rem',

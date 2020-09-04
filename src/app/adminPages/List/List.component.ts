@@ -46,7 +46,7 @@ export class ListComponent implements OnInit {
   }
 
   async buildPosts() {
-    const posts = await this.postService.getPosts();
+    const posts = await this.postService.getUserPosts(this.userService.user.uid);
     this.posts = posts;
     this.Data = posts.map((post) => {
       const address = post.address;

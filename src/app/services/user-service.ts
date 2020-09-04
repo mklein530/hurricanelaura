@@ -240,6 +240,21 @@ export class UserService extends BaseFirestoreService<User> {
     }
   }
 
+  async getHelpers() {
+    const [contractors, volunteers] = await Promise.all([
+      this.getByAttribute('isContractor', '==', true),
+      this.getByAttribute('isVolunteer', '==', true),
+    ]);
+    const contractorsMap = {};
+    contractors.forEach((c) => (contractorsMap[c.uid] = c));
+    volunteers.forEach((v) => {
+      if (!contractorsMap[v.uid]) {
+        contractors.push(v);
+      }
+    });
+    return contractors;
+  }
+
   handleFacebookError() {
     // // An error happened.
     // if (error.code === 'auth/account-exists-with-different-credential') {

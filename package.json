@@ -42,6 +42,7 @@
     "ngeohash": "^0.6.3",
     "ngx-dropzone-wrapper": "^9.0.0",
     "ngx-google-places-autocomplete": "^2.0.4",
+    "ngx-pagination": "^5.0.0",
     "ngx-slick-carousel": "^0.5.1",
     "nouislider": "^14.6.0",
     "rangeslider.js": "^2.3.0",

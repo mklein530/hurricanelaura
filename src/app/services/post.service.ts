@@ -9,15 +9,21 @@ import haversine from 'haversine-distance';
   providedIn: 'root',
 })
 export class PostService extends BaseFirestoreService<Posting> {
+  posts: Posting[] = [];
+
   constructor(protected firestore: AngularFirestore, protected formBuilder: FormBuilder) {
     super(firestore, 'postings', formBuilder);
   }
 
-  getPosts() {
-    return this.getAll();
+  async getPosts() {
+    this.posts = await this.getAll();
+    return this.posts;
   }
 
-  getUserPosts(userId: string) {
+  async getUserPosts(userId: string) {
+    if (this.posts && this.posts.length) {
+      return this.posts.filter((post) => post.user.uid === userId);
+    }
     return this.getByAttribute('user.uid', '==', userId);
   }
 
@@ -30,7 +36,7 @@ export class PostService extends BaseFirestoreService<Posting> {
   }
 
   async distanceFromUser(coords: { lat: any; lng: any }) {
-    if (coords.lat && coords.lng) {
+    if (coords && coords.lat && coords.lng) {
       const position = await this.getLocation();
       if (position && position.coords && position.coords.latitude && position.coords.longitude) {
         const distanceInMeters = this.getDistance(

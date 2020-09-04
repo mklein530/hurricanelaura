@@ -19,4 +19,7 @@ export class User extends BaseEntity {
   password: string;
   providerId: string;
   about: string = '';
+  rating: number = 3;
+  numReviews: number = 0;
+  jobsDone: number = 0;
 }

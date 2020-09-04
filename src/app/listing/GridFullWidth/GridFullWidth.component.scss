@@ -1,13 +1,25 @@
-.font-aw{
-    li{
-        text-align: center;
-        i{
-            font-size: 22px;
-        }
-        margin-bottom: 2rem;
-        margin-top: 1rem;
-        span{
-            display: block;
-        }
+.font-aw {
+  li {
+    text-align: center;
+    i {
+      font-size: 22px;
     }
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+    span {
+      display: block;
+    }
+  }
+}
+
+.avatar {
+  max-width: 50%;
+}
+
+.info-badges {
+  // padding-left: 0.1rem;
+}
+
+.star {
+  color: #fdcc0d !important;
 }

@@ -20,23 +20,19 @@ import { GlobalModule } from '../globalFrontendComponents/global.module';
 
 import { PagesRoutes } from './pages.routing';
 import { SharedModule } from '../shared/shared.module';
+import { ReviewModalComponent } from '../globalFrontendComponents/review-modal/review-modal.component';
+import { MessageModalComponent } from '../globalFrontendComponents/message-modal/message-modal.component';
+import { ReviewResponseModalComponent } from '../globalFrontendComponents/review-response-modal/review-response-modal.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
   url: 'https://httpbin.org/post',
   maxFilesize: 50,
-  acceptedFiles: 'image/*'
+  acceptedFiles: 'image/*',
 };
 
-
 @NgModule({
-  imports: [
-    CommonModule,
-    GlobalModule,
-    DropzoneModule,
-    SharedModule,
-    RouterModule.forChild(PagesRoutes),
-  ],
+  imports: [CommonModule, GlobalModule, DropzoneModule, SharedModule, RouterModule.forChild(PagesRoutes)],
   declarations: [
     PricingComponent,
     InvoiceComponent,
@@ -46,14 +42,14 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     BookingComponent,
     BlogListingComponent,
     BlogDetailComponent,
-    AddListingComponent
+    AddListingComponent,
   ],
+  entryComponents: [ReviewModalComponent, MessageModalComponent, ReviewResponseModalComponent],
   providers: [
     {
       provide: DROPZONE_CONFIG,
-      useValue: DEFAULT_DROPZONE_CONFIG
-    }
-  ]
+      useValue: DEFAULT_DROPZONE_CONFIG,
+    },
+  ],
 })
-
-export class PagesModule { }
+export class PagesModule {}
