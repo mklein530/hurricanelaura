@@ -53,9 +53,17 @@
                 </div>
               </div>
             </div>
-            <div>
+            <div *ngIf="!response.decision || (!response.decision.approved && !response.decision.rejected)">
               <button (click)="approve(response)" class="btn btn-1 btn-primary" type="button">Approve</button>
               <button (click)="reject(response)" class="btn btn-1 btn-danger" type="button">Reject</button>
+            </div>
+            <div *ngIf="response.decision">
+              <div
+                class="alert font-weight-bold text-capitalize"
+                [ngClass]="{ 'alert-danger': response.decision.rejected, 'alert-success': response.decision.approved }"
+              >
+                <span class="h6 text-white font-weight-bold">{{ response.decision.approved ? 'Approved' : 'Rejected' }}</span>
+              </div>
             </div>
           </div>
         </div>

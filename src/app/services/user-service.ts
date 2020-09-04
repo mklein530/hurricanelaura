@@ -154,7 +154,7 @@ export class UserService extends BaseFirestoreService<User> {
       uid: userCredential.uid,
       id: userCredential.uid,
       email: userCredential.email,
-      avatar: userCredential.photoURL,
+      avatar: user.avatar || userCredential.photoURL,
       providerId: userCredential.providerId,
       firstName,
       lastName,
@@ -226,11 +226,18 @@ export class UserService extends BaseFirestoreService<User> {
   async facebookSignIn() {
     try {
       const provider = new firebase.auth.FacebookAuthProvider();
-      ['email'].forEach((scope) => provider.addScope(scope));
+      ['email', 'user_link'].forEach((scope) => provider.addScope(scope));
       const result = await this.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
       let user = await this.getUser(result.user.uid);
+
       if (!user) {
-        user = this.convertFirebaseUser(new User(), result.user);
+        let avatar = '';
+        //@ts-ignore
+        if (result.additionalUserInfo.profile.picture && result.additionalUserInfo.profile.picture.data) {
+          //@ts-ignore
+          avatar = result.additionalUserInfo.profile.picture.data.url || result.user.photoURL;
+        }
+        user = this.convertFirebaseUser({ ...new User(), avatar }, result.user);
         await this.create(JSON.parse(JSON.stringify(user)), user.uid);
       }
       this.user = user;

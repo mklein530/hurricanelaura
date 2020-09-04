@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MessageModalComponent } from './message-modal.component';
+import { MekFieldComponent } from './mek-field.component';
 
-describe('MessageModalComponent', () => {
-  let component: MessageModalComponent;
-  let fixture: ComponentFixture<MessageModalComponent>;
+describe('MekFieldComponent', () => {
+  let component: MekFieldComponent;
+  let fixture: ComponentFixture<MekFieldComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MessageModalComponent ]
+      declarations: [ MekFieldComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MessageModalComponent);
+    fixture = TestBed.createComponent(MekFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

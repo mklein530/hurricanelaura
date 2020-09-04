@@ -13,18 +13,18 @@ import { Router } from '@angular/router';
 export class ListFullWidthComponent implements OnInit {
   Data;
   posts: Posting[] = [];
-
+  page: number = 1;
   constructor(protected userService: UserService, protected postService: PostService, protected router: Router) {}
 
   selectPost(item) {
     // [state]="{ post: list.post }" [queryParams]="{ post: list.id }" [routerLink]="['/listing/detail/version2']
-    this.router.navigate(['listing', 'detail', 'version2'], { 
+    this.router.navigate(['listing', 'detail', 'version2'], {
       queryParams: {
-        postId: item.post.id
+        postId: item.post.id,
       },
       state: {
-        post: item.post
-      }
+        post: item.post,
+      },
     });
   }
 

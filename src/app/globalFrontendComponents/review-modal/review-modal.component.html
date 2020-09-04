@@ -22,11 +22,13 @@
               placeholder="First Name"
               class="form-control form-control-alternative"
             />
+            <span class="error-message">{{ getError(form.get('reviewer').get('firstName')) }}</span>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <input [formControl]="form.get('rating')" type="number" placeholder="Rating" class="form-control form-control-alternative" />
+            <span class="error-message">{{ errors.rating }}</span>
           </div>
         </div>
         <div class="col-md-12">
@@ -38,9 +40,11 @@
               id="exampleFormControlTextarea1"
               rows="3"
             ></textarea>
+            <span class="error-message">{{ errors.message }}</span>
           </div>
         </div>
         <div class="col-md-12">
+          <div *ngIf="error" class="alert-danger text-center mb-2">{{ error }}</div>
           <button (click)="respond()" class="btn btn-1 btn-primary d-block w-100">Submit</button>
         </div>
 

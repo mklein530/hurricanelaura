@@ -12,14 +12,26 @@
   }
 }
 
+.avatar-container {
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 60px;
+  -moz-background-clip: padding;
+  // border-radius: 60px;
+  background-clip: padding-box;
+  // margin: 7px 0 0 5px;
+  float: left;
+  background-size: cover;
+  background-position: center center;
+}
+
 .avatar {
   max-width: 50%;
+  height: 10rem;
+  width: 25rem;
+  max-width: 50%;
+  max-height: 50%;
 }
 
 .info-badges {
   // padding-left: 0.1rem;
-}
-
-.star {
-  color: #fdcc0d !important;
 }

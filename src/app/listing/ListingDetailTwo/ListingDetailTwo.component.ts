@@ -51,6 +51,10 @@ export class ListingDetailTwoComponent implements OnInit, OnDestroy {
     return window.history.state;
   }
 
+  get userIsPoster() {
+    return this.post.user.uid === this.userService.user.uid;
+  }
+
   subscribeToQueryParams(onQueryParams: (postId: string) => any) {
     return this.route.queryParams.subscribe(async (params) => {
       if (params && params.postId) {

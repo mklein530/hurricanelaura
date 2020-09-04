@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
-import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { AdminDashboardlComponent } from './Dashboard/AdminDashboard.component';
 import { MessagesComponent } from './Messages/Messages.component';
 import { BookingsComponent } from './Bookings/Bookings.component';
@@ -16,24 +16,17 @@ import { ProfileComponent } from './Profile/Profile.component';
 
 import { AdminRoutes } from './admin.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
   url: 'https://httpbin.org/post',
   maxFilesize: 50,
-  acceptedFiles: 'image/*'
+  acceptedFiles: 'image/*',
 };
 
-
 @NgModule({
-  imports: [
-    CommonModule,
-    DropzoneModule,
-    FormsModule,
-    ReactiveFormsModule,
-    GooglePlaceModule,
-    RouterModule.forChild(AdminRoutes),
-  ],
+  imports: [CommonModule, DropzoneModule, FormsModule, ReactiveFormsModule, SharedModule, GooglePlaceModule, RouterModule.forChild(AdminRoutes)],
   declarations: [
     AdminDashboardlComponent,
     MessagesComponent,
@@ -42,14 +35,13 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     BookmarksComponent,
     ListComponent,
     AddListComponent,
-    ProfileComponent
+    ProfileComponent,
   ],
   providers: [
     {
       provide: DROPZONE_CONFIG,
-      useValue: DEFAULT_DROPZONE_CONFIG
-    }
-  ]
+      useValue: DEFAULT_DROPZONE_CONFIG,
+    },
+  ],
 })
-
-export class AdminModule { }
+export class AdminModule {}

@@ -1,6 +1,7 @@
 import { Address } from './address';
 import { BaseEntity } from './base-entity';
 import { User } from './user';
+import { Validators } from '@angular/forms';
 
 export class Posting extends BaseEntity {
   id: string = '';
@@ -23,4 +24,14 @@ export class Posting extends BaseEntity {
   geohash: string = '';
   // @ts-ignore
   user: User = {};
+  cleanup: boolean = false;
+  repair: boolean = false;
+  other: boolean = false;
+  showInfo: boolean = false;
+
+  validations = {
+    email: ['', Validators.email, Validators.required],
+    title: ['', Validators.required],
+    description: ['', Validators.required],
+  };
 }

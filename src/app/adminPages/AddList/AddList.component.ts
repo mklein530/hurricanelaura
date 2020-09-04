@@ -6,8 +6,10 @@ import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@ang
 import { getPlaceAsAddress } from '../../../util/address';
 import { PostService } from '../../services/post.service';
 import { Posting } from '../../models/posting';
+import { formErrors } from '../../models/error';
 import { UserService } from '../../services/user-service';
 import { geohash } from '../../services/geolocation';
+import { BaseComponent } from '../../adminPages/BaseComponent';
 
 declare var $: any;
 
@@ -22,31 +24,15 @@ interface Location {
   styleUrls: ['./AddList.component.scss'],
   // encapsulation: ViewEncapsulation.None
 })
-export class AddListComponent implements OnInit, AfterViewInit {
-  form: FormGroup;
-
+export class AddListComponent extends BaseComponent implements OnInit, AfterViewInit {
   constructor(
     protected postService: PostService,
     protected userService: UserService,
     protected snackService: SnackService,
     protected storageService: StorageService
-  ) {}
-  // title: string = '';
-  // descripton: string = '';
-  // // @ts-ignore
-  // address: Address = {};
-  // price: string = '';
-  // wantVolunteers: boolean = true;
-  // wantContractors: boolean = false;
-  // numVolunteers: number = 0;
-  // numContractors: number = 0;
-  // name: string = '';
-  // email: string = '';
-  // website: string = '';
-  // phoneNumber: string = '';
-  // facebook: string = '';
-  // images: string[] = [];
-  // geohash: string = '';
+  ) {
+    super();
+  }
 
   ngAfterViewInit() {
     $('.add-listing-section').each(function () {
@@ -68,8 +54,18 @@ export class AddListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.form = this.postService.buildForm({ ...new Posting(), id: this.postService.createId(), user: this.userService.user }, '', Posting);
+    const user = this.userService.user;
+    const post = {
+      ...new Posting(),
+      id: this.postService.createId(),
+      user,
+      name: user.firstName + ' ' + user.lastName,
+      email: user.email,
+      website: user.website,
+    };
+    this.form = this.postService.buildForm(post, '', Posting);
     this.buildAddress(getAddressFromValue(this.userService.user.address, 'address'));
+    super.ngOnInit();
   }
 
   get address() {
@@ -89,12 +85,17 @@ export class AddListComponent implements OnInit, AfterViewInit {
   }
 
   async savePosting() {
-    try {
-      this.form.get('geohash').setValue(geohash(this.coords.lat, this.coords.lng));
-      await this.postService.createPost(this.form.value, this.form.get('id').value);
-      this.snackService.showMessage('Successfully created post!');
-    } catch (error) {
-      this.snackService.showMessage('Something went wrong.');
+    this.form.markAsTouched();
+    if (this.form.valid) {
+      try {
+        this.form.get('geohash').setValue(geohash(this.coords.lat, this.coords.lng));
+        await this.postService.createPost(this.form.value, this.form.get('id').value);
+        this.snackService.showMessage('Successfully created post!');
+      } catch (error) {
+        this.snackService.showMessage('Something went wrong.');
+      }
+    } else {
+      this.snackService.showMessage('Your form has errors.');
     }
   }
 

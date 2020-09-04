@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { BookingComponent } from '../../pages/Booking/Booking.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { SnackService } from 'src/app/services/snack-service';
 
 @Component({
   selector: 'app-review-modal',
@@ -8,8 +9,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./review-modal.component.css'],
 })
 export class ReviewModalComponent extends BookingComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) data: any, matDialog: MatDialogRef<any>) {
-    super(matDialog, data);
+  constructor(@Inject(MAT_DIALOG_DATA) data: any, matDialog: MatDialogRef<any>, protected snackService: SnackService) {
+    super(matDialog, data, snackService);
   }
 
   ngOnInit(): void {

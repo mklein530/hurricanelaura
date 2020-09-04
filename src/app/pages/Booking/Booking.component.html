@@ -22,6 +22,7 @@
               placeholder="First Name"
               class="form-control form-control-alternative"
             />
+            <span class="error-message">{{ getError(form.get('responder').get('firstName')) }}</span>
           </div>
         </div>
         <div class="col-md-6">
@@ -33,6 +34,7 @@
               class="form-control form-control-alternative"
             />
           </div>
+          <span class="error-message">{{ getError(form.get('responder').get('lastName')) }}</span>
         </div>
         <div class="col-md-6">
           <div class="form-group">
@@ -42,6 +44,7 @@
               placeholder="E mail"
               class="form-control form-control-alternative"
             />
+            <span class="error-message">{{ getError(form.get('responder').get('email')) }}</span>
           </div>
         </div>
         <div class="col-md-6">
@@ -52,6 +55,7 @@
               placeholder="Phone"
               class="form-control form-control-alternative"
             />
+            <span class="error-message">{{ getError(form.get('responder').get('phoneNumber')) }}</span>
           </div>
         </div>
         <div class="col-md-12">
@@ -63,9 +67,11 @@
               id="exampleFormControlTextarea1"
               rows="3"
             ></textarea>
+            <span class="error-message">{{ errors.message }}</span>
           </div>
         </div>
         <div class="col-md-12">
+          <div *ngIf="error" class="alert-danger text-center mb-3">{{ error }}</div>
           <button (click)="respond()" class="btn btn-1 btn-primary d-block w-100">Respond Now</button>
         </div>
 

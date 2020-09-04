@@ -1,0 +1,12 @@
+<div [formGroup]="formGroup" class="form-group">
+  <input
+    [ngClass]="{ alert: showErrors, 'alert-danger': showErrors }"
+    [formControlName]="formControlName"
+    [type]="type"
+    class="form-control form-control-alternative"
+    [name]="name"
+    [placeholder]="placeholder"
+    [required]="required"
+  />
+  <span *ngIf="showErrors" class="error-message">{{ error ? error : customError }}</span>
+</div>

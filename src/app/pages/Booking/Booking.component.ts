@@ -7,13 +7,16 @@ import { UserService } from 'src/app/services/user-service';
 import { ResponseService } from 'src/app/services/response.service';
 import { Response } from 'src/app/models/response';
 import { initializeApp } from 'firebase';
+import { BaseComponent } from 'src/app/adminPages/BaseComponent';
+import { SnackService } from 'src/app/services/snack-service';
 @Component({
   selector: 'booking',
   templateUrl: './Booking.component.html',
   styleUrls: ['./Booking.component.scss'],
   // encapsulation: ViewEncapsulation.None
 })
-export class BookingComponent implements OnInit {
+export class BookingComponent extends BaseComponent implements OnInit {
+  error: string = '';
   //   <mat-form-field>
   //   <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [formControl]="dateControl"
   //      [min]="minDate" [max]="maxDate" [disabled]="disabled">
@@ -24,7 +27,6 @@ export class BookingComponent implements OnInit {
   //      [disableMinute]="disableMinute" [hideTime]="hideTime">
   //   </ngx-mat-datetime-picker>
   // </mat-form-field>
-  form: FormGroup;
   public date: moment.Moment = moment();
   public disabled = false;
   public showSpinners = true;
@@ -39,10 +41,13 @@ export class BookingComponent implements OnInit {
   public color = 'primary';
   @ViewChild('picker') picker: any;
 
-  constructor(protected matDialog: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) protected data: any) {}
+  constructor(protected matDialog: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) protected data: any, protected snackService: SnackService) {
+    super();
+  }
 
   ngOnInit() {
     this.form = this.data.form;
+    super.ngOnInit();
   }
 
   ngAfterViewInit() {
@@ -66,6 +71,11 @@ export class BookingComponent implements OnInit {
   }
 
   respond() {
-    this.matDialog.close(this.form.value);
+    this.error = '';
+    if (this.form.invalid) {
+      this.error = 'Your form has errors';
+    } else {
+      this.matDialog.close(this.form.value);
+    }
   }
 }

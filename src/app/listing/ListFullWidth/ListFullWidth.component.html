@@ -34,9 +34,8 @@
         <!-- Search Section / End -->
         <div class="col-md-12">
           <!-- Sorting - Filtering Section -->
-          <div class="row my-4">
+          <!-- <div class="row my-4">
             <div class="col-md-6">
-              <!-- Layout Switcher -->
               <div class="layout-switcher">
                 <a [routerLink]="['/listing/grid/full-width']" class="grid"
                   ><span class="round-pill d-block"><i class="fa fa-th"></i></span
@@ -46,16 +45,16 @@
                 ></a>
               </div>
             </div>
-          </div>
+          </div> -->
           <!-- Sorting - Filtering Section / End -->
           <div class="row">
             <!-- Listing Item -->
-            <div class="col-lg-12 col-md-12" *ngFor="let list of Data">
+            <div class="col-lg-12 col-md-12" *ngFor="let list of Data | paginate: { itemsPerPage: 10, currentPage: page }; let i = index">
               <div class="listing-item-container list-layout mb-4">
-                <div class="listing-item">
+                <div (click)="selectPost(list)" class="listing-item hover">
                   <!-- Image -->
                   <div class="listing-item-image">
-                    <a [routerLink]="['/listing/detail/version2']"><img class="item-image" [src]="list.image" alt="" /></a>
+                    <img class="item-image" [src]="list.image" alt="" />
                   </div>
                   <!-- Content -->
                   <div class="listing-item-content">
@@ -67,9 +66,7 @@
                     }}</span>
                     <div class="listing-item-inner">
                       <DirectlistRating [rate]="list.rating" [review]="list.review"></DirectlistRating>
-                      <a [routerLink]="" (click)="selectPost(list)">
-                        <h3>{{ list.title }}</h3>
-                      </a>
+                      <h3>{{ list.title }}</h3>
                       <span
                         ><small>{{ list.address }}</small></span
                       >
@@ -96,7 +93,7 @@
           </div>
           <!-- Pagination -->
           <div class="clearfix"></div>
-          <pagination></pagination>
+          <pagination-controls (pageChange)="page = $event"></pagination-controls>
           <!-- Pagination / End -->
         </div>
       </div>

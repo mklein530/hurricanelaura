@@ -20,7 +20,8 @@
               <div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
                 <div class="card-profile-actions py-4 mt-lg-0">
                   <btn *ngIf="!isCurrentUser" (click)="openReviewModal()" class="btn btn-sm btn-info mr-4">Review</btn>
-                  <btn *ngIf="!isCurrentUser" (click)="openReviewModal()" class="btn btn-sm btn-default float-right">Message</btn>
+                  <btn *ngIf="!isCurrentUser" (click)="openMessageModal()" class="btn btn-sm btn-default float-right">Message</btn>
+                  <btn *ngIf="isCurrentUser" (click)="editProfile()" class="btn btn-sm btn-default float-right">Edit</btn>
                 </div>
               </div>
               <div class="col-lg-4 order-lg-1">
@@ -43,7 +44,11 @@
             <div class="text-center mt-5">
               <h3>
                 {{ user.firstName + ' ' + user.lastName }}
-                <span class="font-weight-light"></span>
+                <div class="">
+                  <span class="star" *ngFor="let rating of ratings(user); let i = index" [ngClass]="{ 'ml-1': i > 0 }"
+                    ><i class="fa fa-star star"></i
+                  ></span>
+                </div>
               </h3>
               <div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>{{ distance }}</div>
               <div *ngIf="status" class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i>{{ status }}</div>
@@ -83,7 +88,7 @@
                       >{{ post.done ? 'Completed' : 'Pending' }}</span
                     >
                     <div class="listing-item-inner">
-                      <h3>{{ post.name }}</h3>
+                      <h3>{{ post.title }}</h3>
                       <span>
                         <small> {{ getPostDistance(i) }} </small>
                       </span>
@@ -107,6 +112,11 @@
               </div>
               <div class="col-md-10">
                 <h5 class="text-primary">{{ review.reviewer.firstName }}</h5>
+                <div class="">
+                  <span class="star" *ngFor="let rating of ratings(review); let i = index" [ngClass]="{ 'ml-1': i > 0 }"
+                    ><i class="fa fa-star star"></i
+                  ></span>
+                </div>
                 <p class="text-muted">{{ formatDate(review.createdAt) }}</p>
                 <p>
                   {{ review.message }}

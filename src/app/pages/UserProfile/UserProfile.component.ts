@@ -1,17 +1,19 @@
 import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { UserService } from 'src/app/services/user-service';
 import { PostService } from 'src/app/services/post.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ReviewService } from 'src/app/services/review.service';
+import { MessageService } from 'src/app/services/message.service';
 import { User } from 'src/app/models/user';
 import { Posting } from 'src/app/models/posting';
+import { Message } from 'src/app/models/message';
 import { Review, ReviewResponse } from 'src/app/models/review';
 import * as moment from 'moment';
 import { SnackService } from 'src/app/services/snack-service';
 import { MatDialog } from '@angular/material/dialog';
 import { ReviewModalComponent } from 'src/app/globalFrontendComponents/review-modal/review-modal.component';
-import { ReviewResponseModalComponent } from 'src/app/globalFrontendComponents/review-response-modal/review-response-modal.component';
+import { MessageModalComponent } from 'src/app/globalFrontendComponents/review-response-modal/review-response-modal.component';
 
 @Component({
   selector: 'user-profile',
@@ -34,19 +36,27 @@ export class UserProfileComponent implements OnInit {
     protected reviewService: ReviewService,
     protected route: ActivatedRoute,
     protected snackService: SnackService,
-    protected modal: MatDialog
+    protected modal: MatDialog,
+    protected router: Router,
+    protected messageService: MessageService
   ) {}
 
   subscribeToQueryParams(onQueryParams: (user: string) => any) {
     return this.route.queryParams.subscribe(async (params) => {
-      if (params && params.user) {
-        onQueryParams(params.user);
-      }
+      onQueryParams(params && params.user ? params.user : null);
     });
+  }
+
+  ratings(user: User) {
+    return Array(user.rating || 3).fill(1);
   }
 
   get navigationState() {
     return window.history.state;
+  }
+
+  get isHelper() {
+    return this.user.isContractor || this.user.isVolunteer;
   }
 
   get status() {
@@ -61,6 +71,10 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  editProfile() {
+    return this.router.navigate(['admin', 'profile']);
+  }
+
   async ngOnInit() {
     this.loading = true;
     if (this.navigationState && this.navigationState.user) {
@@ -73,7 +87,8 @@ export class UserProfileComponent implements OnInit {
     } else {
       this.subs.push(
         this.subscribeToQueryParams(async (userId) => {
-          [this.user, this.posts] = await Promise.all([this.userService.getUser(userId), this.postingService.getUserPosts(userId)]);
+          const userRequest = userId ? this.userService.getUser(userId) : Promise.resolve(this.userService.user);
+          [this.user, this.posts] = await Promise.all([userRequest, this.postingService.getUserPosts(userId || this.userService.user.uid)]);
           this.getDistance();
           this.getPostDistances();
           this.reviews = await this.reviewService.getUserReviews(this.user.uid);
@@ -174,7 +189,7 @@ export class UserProfileComponent implements OnInit {
       ...new ReviewResponse(),
       createdAt: new Date().getTime(),
     };
-    const ref = this.modal.open(ReviewResponseModalComponent, {
+    const ref = this.modal.open(MessageModalComponent, {
       data: {
         // @ts-ignore
         form: this.reviewService.buildForm(initialValues, '', ReviewResponse),
@@ -192,6 +207,34 @@ export class UserProfileComponent implements OnInit {
           this.snackService.showMessage('Response sent!');
         } catch (error) {
           this.snackService.showMessage('Unable to send response');
+        }
+      }
+    });
+  }
+
+  openMessageModal() {
+    const initialValues: Message = {
+      ...new Message(),
+      sender: this.userService.user,
+      createdAt: new Date().getTime(),
+      recepientUserId: this.user.uid,
+    };
+    const ref = this.modal.open(MessageModalComponent, {
+      data: {
+        // @ts-ignore
+        form: this.reviewService.buildForm(initialValues, '', Message),
+      },
+      height: '25rem',
+      width: '50rem',
+      panelClass: 'custom-dialog-container',
+    });
+    ref.afterClosed().subscribe(async (result) => {
+      if (result) {
+        try {
+          await this.messageService.create(result, this.messageService.createId());
+          this.snackService.showMessage('Message sent!');
+        } catch (error) {
+          this.snackService.showMessage('Unable to send Message');
         }
       }
     });

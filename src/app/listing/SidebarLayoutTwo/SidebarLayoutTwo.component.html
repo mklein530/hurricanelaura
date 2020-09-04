@@ -25,9 +25,9 @@
       </div>
     </div>
     <ul class="listing-details-sidebar">
-      <li><i class="fa fa-phone"></i>{{ post.phoneNumber }}</li>
-      <li><i class="fa fa-external-link"></i>{{ post.website }}</li>
-      <li><i class="fa fa-envelope-o"></i>{{ post.email }}</li>
+      <li><i class="fa fa-phone"></i>{{ post.showInfo && post.phoneNumber ? post.phoneNumber : 'Unavailable' }}</li>
+      <li><i class="fa fa-external-link"></i>{{ post.website || 'No Website' }}</li>
+      <li><i class="fa fa-envelope-o"></i>{{ post.showInfo && post.email ? post.email : 'Unavailable' }}</li>
     </ul>
   </div>
 </div>
