@@ -35,3 +35,12 @@ export class Posting extends BaseEntity {
     description: ['', Validators.required],
   };
 }
+
+export function getCategories(post: Posting) {
+  const categories = ['cleanup', 'repair', 'other'].filter(cat => {
+    return post[cat] === true;
+  });
+  if (categories.length === 0) {
+    return ['cleanup'];
+  }
+}

@@ -7,13 +7,15 @@ import { UserService } from './services/user-service';
 const canAccess = ['home', 'login', 'signup'];
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private userService: UserService, private myRoute: Router) {}
+  constructor(private userService: UserService, private myRoute: Router) { }
   async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+    console.log(next, state);
     if (this.userService.user) {
       return true;
     }
-    if (canAccess.find((route) => this.myRoute.url.includes(route))) {
-      return await this.resolveUser();
+    if (canAccess.find((route) => state.url.includes(route))) {
+      await this.resolveUser();
+      return true;
     }
     if (await this.resolveUser()) {
       return true;

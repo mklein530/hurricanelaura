@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { UserService } from 'src/app/services/user-service';
 import { PostService } from 'src/app/services/post.service';
-import { Posting } from 'src/app/models/posting';
+import { Posting, getCategories } from '../../models/posting';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,8 +13,38 @@ import { Router } from '@angular/router';
 export class ListFullWidthComponent implements OnInit {
   Data;
   posts: Posting[] = [];
+  unfilteredData: any[] = [];
   page: number = 1;
-  constructor(protected userService: UserService, protected postService: PostService, protected router: Router) {}
+  filters = {
+    category: 'all',
+    helper: 'all',
+    search: ''
+  };
+
+  constructor(protected userService: UserService, protected postService: PostService, protected router: Router) { }
+
+  filterData() {
+    this.Data = this.unfilteredData.filter(data => {
+      let meetsCriteria = true;
+      if (this.filters.category !== 'all') {
+        meetsCriteria = data.categories.includes(this.filters.category);
+      }
+      if (!meetsCriteria) return false;
+      if (this.filters.helper !== 'all') {
+        meetsCriteria = this.filters.helper === 'contractors' ? data.wantContractors : data.wantVolunteers;
+      }
+      if (!meetsCriteria) return false;
+      if (this.filters.search) {
+        meetsCriteria = (data.title as string).toLowerCase().indexOf(this.filters.search.toLowerCase()) > -1;
+      }
+      return meetsCriteria;
+    });
+  }
+
+  setFilter(value, type: string) {
+    this.filters[type] = value;
+    this.filterData();
+  }
 
   selectPost(item) {
     // [state]="{ post: list.post }" [queryParams]="{ post: list.id }" [routerLink]="['/listing/detail/version2']
@@ -29,7 +59,7 @@ export class ListFullWidthComponent implements OnInit {
   }
 
   async buildPosts() {
-    const posts = await this.postService.getPosts();
+    const posts = await this.postService.getPosts() as Posting[];
     this.posts = posts;
     const addressResults = [];
     this.Data = posts.map((post) => {
@@ -39,7 +69,7 @@ export class ListFullWidthComponent implements OnInit {
       return {
         postId: post.id,
         badge: 'Help Needed',
-        category: 'Cleanup',
+        categories: getCategories(post),
         title: post.title,
         address: 'Loading...',
         image: post.images && post.images.length ? post.images[0] : null,
@@ -63,6 +93,7 @@ export class ListFullWidthComponent implements OnInit {
   async ngOnInit() {
     const addresses = await this.buildPosts();
     this.Data = await this.resolveAddresses(addresses);
+    this.unfilteredData = this.Data;
   }
   // 1 contractor signed up
   // 2 volunteers signed up
@@ -126,5 +157,5 @@ export class ListFullWidthComponent implements OnInit {
 
   //  ];
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 }

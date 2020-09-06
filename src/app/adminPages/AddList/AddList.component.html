@@ -1,180 +1,178 @@
 <div [formGroup]="form" class="dashboard-content">
-  <div class="row">
-    <div class="col-lg-12">
-      <div id="add-listing">
-        <!-- Section -->
-        <div class="add-listing-section mb-4">
-          <!-- Headline -->
-          <div class="add-listing-headline">
-            <h3>Details</h3>
-          </div>
-          <div class="row with-forms">
-            <div class="col-12">
-              <div class="form-group">
-                <input formControlName="title" type="text" placeholder="Title" class="form-control form-control-alternative" />
-                <span class="error-message">{{ errors.title }}</span>
-              </div>
-            </div>
-          </div>
+   <div class="row">
+      <div class="col-lg-12">
+         <div id="add-listing">
+            <!-- Section -->
+            <div class="add-listing-section mb-4">
+               <!-- Headline -->
+               <div class="add-listing-headline">
+                  <h3>Details</h3>
+               </div>
+               <div class="row with-forms">
+                  <div class="col-12">
+                     <div class="form-group">
+                        <input formControlName="title" type="text" placeholder="Title"
+                           class="form-control form-control-alternative" />
+                        <span class="error-message">{{ errors.title }}</span>
+                     </div>
+                  </div>
+               </div>
 
-          <div class="form mb-3">
-            <textarea
-              class="form-control form-control-alternative"
-              placeholder="Description"
-              id="exampleFormControlTextarea1"
-              formControlName="description"
-              rows="3"
-            ></textarea>
-            <span class="error-message">{{ errors.description }}</span>
-          </div>
-          <!-- Row -->
-          <div class="row with-forms mb-3">
-            <div class="col-md-6">
-              <div class="form-group">
-                <input
-                  type="text"
-                  placeholder="Address"
-                  class="form-control form-control-alternative"
-                  ngx-google-places-autocomplete
-                  #placesRef="ngx-places"
-                  (onAddressChange)="handleAddressChange($event)"
-                />
-                <span class="error-message"></span>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                <input type="text" placeholder="Price (optional)" class="form-control form-control-alternative" />
-              </div>
-            </div>
-          </div>
-          <!-- Row / End -->
-          <!-- Row -->
-          <h5>You are looking for:</h5>
-          <div class="row with-forms mb-3">
-            <div class="col-md-3">
-              <span class="pt-3 mr-3">
-                <input id="check-c" type="checkbox" name="wantVolunteers" formControlName="wantVolunteers" />
-              </span>
-              <label for="check-b cb-label ml-3">Volunteers</label>
-            </div>
-            <div class="col-md-3">
-              <span class="mr-3">
-                <input id="check-c pt-3" type="checkbox" name="wantContractors" formControlName="wantContractors" />
-              </span>
+               <div class="form mb-3">
+                  <textarea class="form-control form-control-alternative" placeholder="Description"
+                     id="exampleFormControlTextarea1" formControlName="description" rows="3"></textarea>
+                  <span class="error-message">{{ errors.description }}</span>
+               </div>
+               <!-- Row -->
+               <div class="row with-forms mb-3">
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <input type="text" placeholder="Address" class="form-control form-control-alternative"
+                           ngx-google-places-autocomplete #placesRef="ngx-places"
+                           (onAddressChange)="handleAddressChange($event)" />
+                        <span class="error-message"></span>
+                     </div>
+                  </div>
+                  <div class="col-md-2">
+                     <div class="form-group">
+                        <input type="text" placeholder="Price (optional)"
+                           class="form-control form-control-alternative" />
+                     </div>
+                  </div>
+               </div>
+               <!-- Row / End -->
+               <!-- Row -->
+               <h5>You are looking for:</h5>
+               <div class="row with-forms mb-3">
+                  <div class="col-md-3">
+                     <span class="pt-3 mr-3">
+                        <input id="check-c" type="checkbox" name="wantVolunteers" formControlName="wantVolunteers" />
+                     </span>
+                     <label for="check-b cb-label ml-3">Volunteers</label>
+                  </div>
+                  <div class="col-md-3">
+                     <span class="mr-3">
+                        <input id="check-c pt-3" type="checkbox" name="wantContractors"
+                           formControlName="wantContractors" />
+                     </span>
 
-              <label for="check-b cb-label ml-3">Contractors</label>
+                     <label for="check-b cb-label ml-3">Contractors</label>
+                  </div>
+               </div>
+               <!-- Row / End -->
+               <!-- Checkboxes -->
+               <h5>Type of Request:</h5>
+               <div class="row with-forms">
+                  <div class="col-md-2">
+                     <span class="pt-3 mr-3">
+                        <input id="check-c" type="checkbox" name="cleanup" formControlName="cleanup" />
+                     </span>
+                     <label for="check-b cb-label">Cleanup</label>
+                  </div>
+                  <div class="col-md-2">
+                     <span class="pt-3 mr-3">
+                        <input id="check-c" type="checkbox" name="repair" formControlName="repair" />
+                     </span>
+                     <label for="check-b cb-label">Repair</label>
+                  </div>
+                  <div class="col-md-2">
+                     <span class="pt-3 mr-3">
+                        <input id="check-c" type="checkbox" name="other" formControlName="other" />
+                     </span>
+                     <label for="check-b cb-label">Other</label>
+                  </div>
+               </div>
+               <!-- Checkboxes / End -->
             </div>
-          </div>
-          <!-- Row / End -->
-          <!-- Checkboxes -->
-          <h5>Type of Request:</h5>
-          <div class="row with-forms">
-            <div class="col-md-2">
-              <span class="pt-3 mr-3">
-                <input id="check-c" type="checkbox" name="cleanup" formControlName="cleanup" />
-              </span>
-              <label for="check-b cb-label">Cleanup</label>
-            </div>
-            <div class="col-md-2">
-              <span class="pt-3 mr-3">
-                <input id="check-c" type="checkbox" name="repair" formControlName="repair" />
-              </span>
-              <label for="check-b cb-label">Repair</label>
-            </div>
-            <div class="col-md-2">
-              <span class="pt-3 mr-3">
-                <input id="check-c" type="checkbox" name="other" formControlName="other" />
-              </span>
-              <label for="check-b cb-label">Other</label>
-            </div>
-          </div>
-          <!-- Checkboxes / End -->
-        </div>
-        <!-- Section -->
-        <div class="add-listing-section mb-4">
-          <!-- Headline -->
-          <div class="add-listing-headline">
-            <h3>Contact Information</h3>
-            <!-- <span class="add-listing-headline mt-1">*Note: this information will be visible to anyone that views your request.</span> -->
-          </div>
-          <!-- Title -->
-          <form [formGroup]="form">
-            <div class="row with-forms">
-              <div class="col-md-12">
-                <span class="pt-3 mr-2">
-                  <input id="check-c" type="checkbox" name="showInfo" formControlName="showInfo" />
-                </span>
-                <label for="check-b cb-label"
-                  >Show this information to users that view my request (Note: Potential helpers can still contact you about the request through the
-                  website)</label
-                >
-              </div>
-            </div>
-            <div class="row with-forms">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <input type="text" placeholder="Name" formControlName="name" class="form-control form-control-alternative" />
-                </div>
-              </div>
-            </div>
-            <!-- Row -->
-            <div class="row with-forms">
-              <!-- Status -->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <input type="email" placeholder="Email Address" formControlName="email" class="form-control form-control-alternative" />
-                  <span class="error-message">{{ errors.email }}</span>
-                </div>
-              </div>
-              <!-- Type -->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <input type="tel" placeholder="Phone Number" formControlName="phoneNumber" class="form-control form-control-alternative" />
-                </div>
-              </div>
-              <!-- Website -->
-              <div class="row col-12 mb-4">
-                <div class="col-md-4">
-                  <input type="text" placeholder="Website (optional)" class="form-control form-control-alternative" />
-                  <span class="error-message"></span>
-                </div>
-              </div>
+            <!-- Section -->
+            <div class="add-listing-section mb-4">
+               <!-- Headline -->
+               <div class="add-listing-headline">
+                  <h3>Contact Information</h3>
+                  <!-- <span class="add-listing-headline mt-1">*Note: this information will be visible to anyone that views your request.</span> -->
+               </div>
+               <!-- Title -->
+               <form [formGroup]="form">
+                  <div class="row with-forms">
+                     <div class="col-md-12">
+                        <span class="pt-3 mr-2">
+                           <input id="check-c" type="checkbox" name="showInfo" formControlName="showInfo" />
+                        </span>
+                        <label for="check-b cb-label">Show this information to users that view my request (Note:
+                           Potential helpers can still contact you about the request through the
+                           website)</label>
+                     </div>
+                  </div>
+                  <div class="row with-forms">
+                     <div class="col-md-12">
+                        <div class="form-group">
+                           <input type="text" placeholder="Name" formControlName="name"
+                              class="form-control form-control-alternative" />
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Row -->
+                  <div class="row with-forms">
+                     <!-- Status -->
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <input type="email" placeholder="Email Address" formControlName="email"
+                              class="form-control form-control-alternative" />
+                           <span class="error-message">{{ errors.email }}</span>
+                        </div>
+                     </div>
+                     <!-- Type -->
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <input type="tel" placeholder="Phone Number" formControlName="phoneNumber"
+                              class="form-control form-control-alternative" />
+                        </div>
+                     </div>
+                     <!-- Website -->
+                     <div class="row col-12 mb-4">
+                        <div class="col-md-4">
+                           <input type="text" placeholder="Website (optional)"
+                              class="form-control form-control-alternative" />
+                           <span class="error-message"></span>
+                        </div>
+                     </div>
 
-              <!-- Facebook -->
-              <div class="col-md-4">
-                <h5 class="fb-input"><i class="fa fa-facebook-square"></i> Facebook <span>(optional)</span></h5>
-                <input type="text" class="form-control form-control-alternative" placeholder="https://www.facebook.com/" />
-              </div>
+                     <!-- Facebook -->
+                     <div class="col-md-4">
+                        <h5 class="fb-input"><i class="fa fa-facebook-square"></i> Facebook <span>(optional)</span></h5>
+                        <input type="text" class="form-control form-control-alternative"
+                           placeholder="https://www.facebook.com/" />
+                     </div>
+                  </div>
+               </form>
+               <!-- Row / End -->
             </div>
-          </form>
-          <!-- Row / End -->
-        </div>
-        <!-- Section / End -->
-        <!-- Section -->
-        <div class="add-listing-section mb-4">
-          <div class="add-listing-headline">
-            <h3>Images</h3>
-          </div>
-          <!-- Dropzone -->
-          <dropzone (complete)="handleFileInput($event)" class="dropzone-container" [message]="'Click or drag images here to upload'"></dropzone>
-        </div>
-        <!-- Section / End -->
+            <!-- Section / End -->
+            <!-- Section -->
+            <div class="add-listing-section mb-4">
+               <div class="add-listing-headline">
+                  <h3>Images</h3>
+               </div>
+               <!-- Dropzone -->
+               <dropzone (complete)="handleFileInput($event)" class="dropzone-container"
+                  [message]="'Click or drag images here to upload'"></dropzone>
+            </div>
+            <!-- Section / End -->
 
-        <!-- Section / End -->
-        <!-- Section -->
+            <!-- Section / End -->
+            <!-- Section -->
 
-        <!-- Section / End -->
-        <!-- Section -->
+            <!-- Section / End -->
+            <!-- Section -->
 
-        <!-- Section / End -->
-        <a href="#" class="btn btn-danger">Preview <i class="fa fa-arrow-circle-right"></i></a>
-        <button (click)="savePosting()" class="btn btn-primary">Create Post</button>
+            <!-- Section / End -->
+            <a href="#" class="btn btn-danger">Preview <i class="fa fa-arrow-circle-right"></i></a>
+            <button (click)="savePosting()" class="btn btn-primary">Create Post</button>
+         </div>
       </div>
-    </div>
-    <!-- Copyrights -->
-    <div class="col-md-12">
-      <div class="copyrights">© 2020 DirectList. All Rights Reserved.</div>
-    </div>
-  </div>
+      <!-- Copyrights -->
+      <div class="col-md-12">
+         <div class="copyrights">© 2020 Cajun Union. All Rights Reserved.</div>
+      </div>
+   </div>
 </div>

@@ -21,11 +21,11 @@ export class SidebarLayoutTwoComponent implements OnInit {
     protected responseService: ResponseService,
     protected snackService: SnackService,
     protected userService: UserService
-  ) {}
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 
   get avatar() {
     if (this.post.user && this.post.user.avatar) {
@@ -52,7 +52,7 @@ export class SidebarLayoutTwoComponent implements OnInit {
     ref.afterClosed().subscribe(async (result) => {
       if (result) {
         try {
-          await this.responseService.create(result, this.responseService.createId());
+          await this.responseService.create({ ...result, post: this.post }, this.responseService.createId());
           this.snackService.showMessage('Response sent!');
         } catch (error) {
           this.snackService.showMessage('Unable to send response');

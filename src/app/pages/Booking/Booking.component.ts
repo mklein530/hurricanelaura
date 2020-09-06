@@ -1,12 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewEncapsulation, ViewChild, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { MatDialogRef, MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { PostService } from 'src/app/services/post.service';
-import { UserService } from 'src/app/services/user-service';
-import { ResponseService } from 'src/app/services/response.service';
-import { Response } from 'src/app/models/response';
-import { initializeApp } from 'firebase';
 import { BaseComponent } from 'src/app/adminPages/BaseComponent';
 import { SnackService } from 'src/app/services/snack-service';
 @Component({

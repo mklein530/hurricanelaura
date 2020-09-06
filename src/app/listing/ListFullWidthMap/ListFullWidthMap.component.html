@@ -17,10 +17,11 @@
                         <div class="listing-item-content">
                            <span class="badge badge-pill list-banner badge-success text-uppercase">{{list.badge}}</span>
                            <div class="listing-item-inner">
-                              <DirectlistRating [rate]="list.rating"></DirectlistRating>
+                              <!-- <Cajun UnionRating [rate]="list.rating"></Cajun UnionRating> -->
                               <h3> <a href="#"> {{list.title}}</a></h3>
                               <span><small>{{list.address}}</small></span>
-                              <div class="mt-3"><span class="badge badge-pill badge-primary text-uppercase">{{list.category}}</span></div>
+                              <div class="mt-3"><span
+                                    class="badge badge-pill badge-primary text-uppercase">{{list.category}}</span></div>
                            </div>
                            <span class="round-pill like-banner d-block bg-primary"><i class="fa fa-heart-o"></i></span>
                         </div>
@@ -42,4 +43,3 @@
       </div>
    </div>
 </div>
-

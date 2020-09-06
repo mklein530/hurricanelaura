@@ -13,5 +13,37 @@ agm-map {
    background: url('../../../assets/images/downtownlc.jpg') no-repeat center / cover;
    height: 40rem;
    width: 100%;
-   
+   color:white;
+   font-size: 5vh;
+   text-align: center;
+}
+
+.header {
+   font-size: 5vh;
+   margin-bottom: 1.5rem;
+}
+
+.subheader {
+   font-size: 2.2vh;
+}
+
+.front-page-btn {
+   width: 60vw;
+   margin: 0 auto;
+   border-radius: 5rem;
+   word-wrap: break-word;
+   overflow-wrap: normal;
+   white-space: normal;
+   text-align: center;
+}
+
+.text-small {
+   font-size: 2vh;
+   text-transform: none;
+   word-wrap: break-word;
+}
+
+.text-large {
+   font-size: 3vh;
+   text-transform: none;
 }

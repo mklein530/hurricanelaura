@@ -1,6 +1,7 @@
 import { BaseEntity } from './base-entity';
 import { User } from './user';
 import { Validators } from '@angular/forms';
+import { Posting } from './posting';
 
 export class Response extends BaseEntity {
   id = '';
@@ -9,6 +10,7 @@ export class Response extends BaseEntity {
   responder: User = {};
   createdAt: number = 0;
   message: string = '';
+  post: Posting = null;
   decision: {
     approved: boolean;
     rejected: boolean;

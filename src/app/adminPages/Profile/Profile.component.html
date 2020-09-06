@@ -8,13 +8,15 @@
           <!-- Avatar -->
           <!-- Details -->
           <div class="max-img">
-            <img [src]="form.get('avatar').value" class="img-fluid rounded-circle shadow-lg mr-1 profile-image" alt="" />
+            <img [src]="form.get('avatar').value" class="img-fluid rounded-circle shadow-lg mr-1 profile-image"
+              alt="" />
           </div>
 
           <div [formGroup]="form" class="my-profile">
             <div class="row col-12">
               <div class="custom-file col-10">
-                <input (change)="handleFileInput($event.target.files)" type="file" class="custom-file-input" id="validatedCustomFile" />
+                <input (change)="handleFileInput($event.target.files)" type="file" class="custom-file-input"
+                  id="validatedCustomFile" />
                 <label class="custom-file-label" for="validatedCustomFile">Upload your photo...</label>
                 <div class="invalid-feedback">Example invalid custom file feedback</div>
               </div>
@@ -38,12 +40,14 @@
             </div>
             <div class="mt-3">
               <div class="form-group">
-                <input formControlName="firstName" type="text" placeholder="First Name" class="form-control form-control-alternative" />
+                <input formControlName="firstName" type="text" placeholder="First Name"
+                  class="form-control form-control-alternative" />
               </div>
             </div>
             <div>
               <div class="form-group">
-                <input formControlName="lastName" type="text" placeholder="Last Name" class="form-control form-control-alternative" />
+                <input formControlName="lastName" type="text" placeholder="Last Name"
+                  class="form-control form-control-alternative" />
               </div>
             </div>
             <!-- <div>
@@ -58,33 +62,31 @@
             </div> -->
             <div>
               <div class="form-group">
-                <input formControlName="phoneNumber" type="text" placeholder="Phone" class="form-control form-control-alternative" />
+                <input formControlName="phoneNumber" type="text" placeholder="Phone"
+                  class="form-control form-control-alternative" />
               </div>
             </div>
             <div class="form-group">
-              <input formControlName="email" type="text" placeholder="E-mail" class="form-control form-control-alternative" />
+              <input formControlName="email" type="text" placeholder="E-mail"
+                class="form-control form-control-alternative" />
             </div>
             <div class="form-group">
-              <input
-                [value]="address"
-                type="text"
-                placeholder="Address"
-                class="form-control form-control-alternative"
-                ngx-google-places-autocomplete
-                #placesRef="ngx-places"
-                (onAddressChange)="handleAddressChange($event)"
-              />
+              <input [value]="address" type="text" placeholder="Address" class="form-control form-control-alternative"
+                ngx-google-places-autocomplete #placesRef="ngx-places"
+                (onAddressChange)="handleAddressChange($event)" />
             </div>
             <div class="form-group">
-              <input formControlName="facebook" type="text" placeholder="Facebook" class="form-control form-control-alternative" />
+              <input formControlName="facebook" type="text" placeholder="Facebook"
+                class="form-control form-control-alternative" />
             </div>
             <div class="form-group">
-              <input formControlName="website" type="text" placeholder="Website" class="form-control form-control-alternative" />
+              <input formControlName="website" type="text" placeholder="Website"
+                class="form-control form-control-alternative" />
             </div>
             <label>About</label>
-            <textarea formControlName="about" class="form-control form-control-alternative mb-4" name="notes" id="notes" cols="30" rows="10">
-Tell us about yourself!</textarea
-            >
+            <textarea formControlName="about" class="form-control form-control-alternative mb-4" name="notes" id="notes"
+              cols="30" rows="10">
+Tell us about yourself!</textarea>
           </div>
           <button (keyup.enter)="updateUser()" (click)="updateUser()" class="btn btn-primary">Save</button>
         </div>
@@ -128,7 +130,7 @@ Tell us about yourself!</textarea
     </div> -->
     <!-- Copyrights -->
     <div class="col-md-12">
-      <div class="copyrights">© 2020 DirectList. All Rights Reserved.</div>
+      <div class="copyrights">© 2020 Cajun Union. All Rights Reserved.</div>
     </div>
   </div>
 </div>

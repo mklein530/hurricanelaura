@@ -1,16 +1,14 @@
-import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
-import { StorageService } from '../services/storage.service';
-import { SnackService } from '../services/snack-service';
-import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
-import { PostService } from '../services/post.service';
-import { formErrors } from '../models/error';
-import { UserService } from '../services/user-service';
 
-export class BaseComponent implements OnInit {
+import { FormGroup, AbstractControl } from '@angular/forms';
+import { formErrors } from '../models/error';
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class BaseComponent {
   form: FormGroup;
   errors: any = {};
 
-  getError(formControl: FormControl) {
+  getError(formControl: AbstractControl) {
     const errors = formControl.errors;
     if (errors) {
       const keys = Object.keys(errors);

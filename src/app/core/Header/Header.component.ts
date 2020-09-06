@@ -1,47 +1,67 @@
-import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { AdminMenuItems } from '../AdminHeader/admin-menu-items';
+import { UserService } from '../../services/user-service';
+import { User } from '../../models/user';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './Header.component.html',
-  styleUrls: ['./Header.component.scss'],
-  encapsulation: ViewEncapsulation.None
+   selector: 'app-header',
+   templateUrl: './Header.component.html',
+   styleUrls: ['./Header.component.scss'],
+   encapsulation: ViewEncapsulation.None,
+   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
 
    private _router: Subscription;
    url: string;
+   user: User;
 
-   isFixedClass : boolean = false; 
+   isFixedClass: boolean = false;
 
-   constructor(private router: Router){}
+   constructor(public adminMenuItems: AdminMenuItems, public userService: UserService, public router: Router, protected cdRef: ChangeDetectorRef) { }
 
-   ngOnInit(){
-      // this._router = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
-      //    this.url = event.url;
-      //    if (this.isFixedHeader()) {
-      //       this.isFixedClass = true;
-      //    }
-      //    else
-      //    {
-      //       this.isFixedClass = false;
-      //    }
-      // });
+   ngOnInit() {
+      const interval = setInterval(() => {
+         if (this.userService.user) {
+            this.user = this.userService.user;
+            // this.cdRef.markForCheck();
+            clearInterval(interval);
+         }
+      });
    }
 
-   isFixedHeader()
-   {
+   get img() {
+      if (this.userService.user) {
+         return this.userService.user.avatar;
+      }
+      return 'assets/images/avatar-placeholder.png';
+      // return '../../../assets/images/thumb-4.jpg';
+   }
+
+   get name() {
+      if (this.user && (this.user.firstName || this.user.lastName)) {
+         return this.user.firstName + ' ' + this.user.lastName;
+      }
+      return 'Name unknown';
+   }
+
+   async logout() {
+      await this.userService.signOut();
+      return this.router.navigateByUrl('/');
+   }
+
+   isFixedHeader() {
       if (this.url === '/listing/half-map/grid' || this.url === '/listing/half-map/list') {
          return true;
-       } else {
+      } else {
          return false
-       }
+      }
    }
 
-   ngAfterViewInit()
-   {
-     
+   ngAfterViewInit() {
+
    }
 }

@@ -1,6 +1,6 @@
 <div class="main-wrapper">
   <!--Title Bar -->
-  <title-bar title="List Full Width" subtitle="Explore New Places"></title-bar>
+  <title-bar title="Helpers" subtitle="Find contractors and volunteers"></title-bar>
   <!-- Content  -->
   <div class="content">
     <div class="container">
@@ -8,26 +8,31 @@
         <!-- Search -->
         <div class="col-md-12 grid-full-width page-search mb-3">
           <div class="main-search-input mt-0">
-            <div class="col-lg-3 col-sm-6">
+            <div class="col-lg-4 col-sm-8">
               <div class="form-group">
-                <input type="text" placeholder="What are you looking for?" class="form-control" />
+                <input [ngModel]="filters.search" (ngModelChange)="setFilter($event, 'search')" type="text"
+                  placeholder="Search for helpers..." class="form-control" />
               </div>
             </div>
-            <div class="col-lg-3 col-sm-6">
-              <div class="form-group">
-                <input type="text" placeholder="Location" class="form-control" />
-              </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-              <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                <option selected>Choose...</option>
-                <option value="1">Hotel</option>
-                <option value="2">Bar</option>
-                <option value="3">Food Courts</option>
+            <div class="col-lg-4 col-sm-8">
+              <select (change)="setFilter($event.target.value, 'rating')" class="custom-select my-1 mr-sm-2"
+                id="inlineFormCustomSelectPref">
+                <option selected>Rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
               </select>
             </div>
-            <div class="col-lg-3 col-sm-6 text-right">
-              <a class="btn main-search-btn btn-radius btn-lg btn-primary text-white"><span class="btn-inner--text">Search</span></a>
+            <div class="col-lg-4 col-sm-8">
+              <select (change)="setFilter($event.target.value, 'helper')" class="custom-select my-1 mr-sm-2"
+                id="inlineFormCustomSelectPref">
+                <option selected>Helper Type</option>
+                <option value="contractors">Contractor</option>
+                <option value="volunteers">Volunteer</option>
+                <option value="all">All</option>
+              </select>
             </div>
           </div>
         </div>
@@ -49,35 +54,37 @@
           <!-- Sorting - Filtering Section / End -->
           <div class="row">
             <!-- Listing Item -->
-            <div class="col-lg-12 col-md-12" *ngFor="let user of users | paginate: { itemsPerPage: 10, currentPage: page }; let i = index">
+            <div class="col-lg-12 col-md-12"
+              *ngFor="let user of users | paginate: { itemsPerPage: 10, currentPage: page }; let i = index">
               <div class="listing-item-container list-layout mb-4">
                 <div class="listing-item">
                   <!-- Image -->
-                  <div class="listing-item-image d-flex justify-content-center align-items-center text-center avatar-container">
-                    <a [routerLink]="['/listing/detail/version2']"
-                      ><img [src]="getAvatar(user)" class="img-fluid rounded-circle shadow-lg mr-2 avatar" alt=""
-                    /></a>
+                  <div
+                    class="listing-item-image d-flex justify-content-center align-items-center text-center avatar-container">
+                    <a [routerLink]="['/listing/detail/version2']"><img [src]="getAvatar(user)"
+                        class="img-fluid rounded-circle shadow-lg mr-2 avatar" alt="" /></a>
                   </div>
                   <!-- Content -->
                   <div class="listing-item-content">
-                    <span *ngIf="user.isContractor" class="badge badge-pill list-banner badge-success text-uppercase">{{ 'Contractor' }}</span>
-                    <span *ngIf="user.isVolunteer" class="badge badge-pill list-banner badge-success text-uppercase">{{ 'Volunteer' }}</span>
+                    <span *ngIf="user.isContractor"
+                      class="badge badge-pill list-banner badge-success text-uppercase">{{ 'Contractor' }}</span>
+                    <span *ngIf="user.isVolunteer"
+                      class="badge badge-pill list-banner badge-success text-uppercase">{{ 'Volunteer' }}</span>
                     <div class="listing-item-inner">
-                      <!-- <DirectlistRating [rate]="list.rating" [review]="list.review"></DirectlistRating> -->
+                      <!-- <Cajun UnionRating [rate]="list.rating" [review]="list.review"></Cajun UnionRating> -->
                       <a [routerLink]="" (click)="selectUser(user)">
                         <h3>{{ user.firstName + ' ' + user.lastName }}</h3>
                       </a>
-                      <span
-                        ><small>{{ userDistance(user, i) }}</small></span
-                      >
+                      <span><small>{{ userDistance(user, i) }}</small></span>
                       <div class="mt-1">
-                        <span class="star" *ngFor="let rating of ratings(user); let i = index" [ngClass]="{ 'ml-1': i > 0 }"
-                          ><i class="fa fa-star star"></i
-                        ></span>
+                        <span class="star" *ngFor="let rating of ratings(user); let i = index"
+                          [ngClass]="{ 'ml-1': i > 0 }"><i class="fa fa-star star"></i></span>
                       </div>
                       <div class="mt-1 info-badges">
-                        <span class="badge badge-pill badge-primary text-uppercase">{{ getStat(user, 'numReviews') + ' Reviews' }}</span>
-                        <span class="badge badge-pill badge-primary text-uppercase ml-2">{{ getStat(user, 'jobsDone') + ' Jobs Done' }}</span>
+                        <span
+                          class="badge badge-pill badge-primary text-uppercase">{{ getStat(user, 'numReviews') + ' Reviews' }}</span>
+                        <span
+                          class="badge badge-pill badge-primary text-uppercase ml-2">{{ getStat(user, 'jobsDone') + ' Jobs Done' }}</span>
                       </div>
                       <!-- <div class="col-12">
                         <div class="row">

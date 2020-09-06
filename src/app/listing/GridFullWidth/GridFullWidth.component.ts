@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { UserService } from 'src/app/services/user-service';
-import { User } from 'src/app/models/user';
+import { User } from '../../models/user';
 import { PostService } from 'src/app/services/post.service';
 import { Router } from '@angular/router';
 
@@ -23,18 +23,48 @@ export class GridFullWidthComponent implements OnInit {
       review: '(12 reviews)',
     },
   ];
+  unfilteredData: User[] = [];
+  filters = {
+    helper: 'all',
+    rating: 'all',
+    search: ''
+  }
   distancePromises = [];
   distances: string[] = [];
   page: number = 1;
-  constructor(protected userService: UserService, protected postService: PostService, protected router: Router) {}
+  constructor(protected userService: UserService, protected postService: PostService, protected router: Router) { }
+
+  filterData() {
+    this.users = this.unfilteredData.filter(data => {
+      let meetsCriteria = true;
+      if (this.filters.rating !== 'all') {
+        meetsCriteria = Number(data.rating) === Number(this.filters.rating);
+      }
+      if (!meetsCriteria) return false;
+      if (this.filters.helper !== 'all') {
+        meetsCriteria = this.filters.helper === 'contractors' ? data.isContractor : data.isVolunteer;
+      }
+      if (!meetsCriteria) return false;
+      if (this.filters.search) {
+        const fullName = data.firstName + ' ' + data.lastName;
+        meetsCriteria = fullName.toLowerCase().indexOf(this.filters.search.toLowerCase()) > -1;
+      }
+      return meetsCriteria;
+    });
+  }
+
+  setFilter(value, type: string) {
+    this.filters[type] = value;
+    this.filterData();
+  }
 
   async ngOnInit() {
-    this.users = await this.userService.getHelpers();
+    this.users = this.unfilteredData = await this.userService.getHelpers();
     this.distancePromises = this.users.map((user, index) => this.getDistance(user));
     this.distances = (await Promise.all(this.distancePromises)).map((distance, index) => distance);
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 
   getAvatar(user: User) {
     if (user.avatar) {

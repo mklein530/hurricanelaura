@@ -20,8 +20,10 @@
               <div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
                 <div class="card-profile-actions py-4 mt-lg-0">
                   <btn *ngIf="!isCurrentUser" (click)="openReviewModal()" class="btn btn-sm btn-info mr-4">Review</btn>
-                  <btn *ngIf="!isCurrentUser" (click)="openMessageModal()" class="btn btn-sm btn-default float-right">Message</btn>
-                  <btn *ngIf="isCurrentUser" (click)="editProfile()" class="btn btn-sm btn-default float-right">Edit</btn>
+                  <btn *ngIf="!isCurrentUser" (click)="openMessageModal()" class="btn btn-sm btn-default float-right">
+                    Message</btn>
+                  <btn *ngIf="isCurrentUser" (click)="editProfile()" class="btn btn-sm btn-default float-right">Edit
+                  </btn>
                 </div>
               </div>
               <div class="col-lg-4 order-lg-1">
@@ -45,9 +47,8 @@
               <h3>
                 {{ user.firstName + ' ' + user.lastName }}
                 <div class="">
-                  <span class="star" *ngFor="let rating of ratings(user); let i = index" [ngClass]="{ 'ml-1': i > 0 }"
-                    ><i class="fa fa-star star"></i
-                  ></span>
+                  <span class="star" *ngFor="let rating of ratings(user); let i = index"
+                    [ngClass]="{ 'ml-1': i > 0 }"><i class="fa fa-star star"></i></span>
                 </div>
               </h3>
               <div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>{{ distance }}</div>
@@ -75,18 +76,16 @@
           <div class="row p-4">
             <div *ngFor="let post of posts; let i = index" class="col-md-6 mb-4">
               <div class="listing-item-container list-layout">
-                <a [routerLink]="['/listing/detail/version2']" [state]="{ post: post }" [queryParams]="{ postId: post.id }" class="listing-item">
+                <a [routerLink]="['/listing/detail/version2']" [state]="{ post: post }"
+                  [queryParams]="{ postId: post.id }" class="listing-item">
                   <!-- Image -->
-                  <div class="listing-item-image">
+                  <div class="listing-item-image max-height">
                     <img [src]="getImage(post)" alt="" />
                   </div>
                   <!-- Content -->
                   <div class="listing-item-content">
-                    <span
-                      class="badge badge-pill list-banner text-uppercase"
-                      [ngClass]="{ 'badge-success': post.done, 'badge-danger': !post.done }"
-                      >{{ post.done ? 'Completed' : 'Pending' }}</span
-                    >
+                    <span class="badge badge-pill list-banner text-uppercase"
+                      [ngClass]="{ 'badge-success': post.done, 'badge-danger': !post.done }">{{ post.done ? 'Completed' : 'Pending' }}</span>
                     <div class="listing-item-inner">
                       <h3>{{ post.title }}</h3>
                       <span>
@@ -113,15 +112,15 @@
               <div class="col-md-10">
                 <h5 class="text-primary">{{ review.reviewer.firstName }}</h5>
                 <div class="">
-                  <span class="star" *ngFor="let rating of ratings(review); let i = index" [ngClass]="{ 'ml-1': i > 0 }"
-                    ><i class="fa fa-star star"></i
-                  ></span>
+                  <span class="star" *ngFor="let rating of ratings(review); let i = index"
+                    [ngClass]="{ 'ml-1': i > 0 }"><i class="fa fa-star star"></i></span>
                 </div>
                 <p class="text-muted">{{ formatDate(review.createdAt) }}</p>
                 <p>
                   {{ review.message }}
                 </p>
-                <button *ngIf="isCurrentUser" (click)="openReviewResponseModal(review.id, i)" class="btn btn-sm btn-primary" type="button">
+                <button *ngIf="isCurrentUser" (click)="openReviewResponseModal(review.id, i)"
+                  class="btn btn-sm btn-primary" type="button">
                   Respond
                 </button>
               </div>

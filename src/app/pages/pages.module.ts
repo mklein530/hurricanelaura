@@ -21,7 +21,6 @@ import { GlobalModule } from '../globalFrontendComponents/global.module';
 import { PagesRoutes } from './pages.routing';
 import { SharedModule } from '../shared/shared.module';
 import { ReviewModalComponent } from '../globalFrontendComponents/review-modal/review-modal.component';
-import { MessageModalComponent } from '../globalFrontendComponents/message-modal/message-modal.component';
 import { MessageModalComponent } from '../globalFrontendComponents/review-response-modal/review-response-modal.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
@@ -52,4 +51,4 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     },
   ],
 })
-export class PagesModule {}
+export class PagesModule { }

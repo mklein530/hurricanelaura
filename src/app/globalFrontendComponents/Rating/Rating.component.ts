@@ -1,18 +1,18 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'DirectlistRating',
+  selector: 'CajunUnionRating',
   templateUrl: './Rating.component.html',
   styleUrls: ['./Rating.component.scss']
 })
 export class RatingComponent implements OnInit {
 
-   @Input() rate : any;
-   @Input() review : any = '(12 reviews)';
+  @Input() rate: any;
+  @Input() review: any = '(12 reviews)';
 
-   constructor() { }
+  constructor() { }
 
-   ngOnInit() {
-   }
+  ngOnInit() {
+  }
 
 }

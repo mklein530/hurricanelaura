@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
 })
 export class AdminHeaderComponent implements OnInit {
-  constructor(public adminMenuItems: AdminMenuItems, public userService: UserService, public router: Router) {}
+  constructor(public adminMenuItems: AdminMenuItems, public userService: UserService, public router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   get user() {
     return this.userService.user;
@@ -33,7 +33,7 @@ export class AdminHeaderComponent implements OnInit {
     return 'Name unknown';
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 
   async logout() {
     await this.userService.signOut();

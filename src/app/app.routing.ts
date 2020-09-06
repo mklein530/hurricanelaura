@@ -18,6 +18,7 @@ export const AppRoutes: Routes = [
       {
         path: 'home',
         loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+        canActivate: [AuthGuard]
       },
       {
         path: 'listing',

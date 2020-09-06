@@ -17,38 +17,24 @@
 		 </agm-marker>
 	</agm-map> -->
 	<div class="image-section">
-
+		<div class="header">Hurricane Laura Recovery</div>
+		<div class="subheader">Find and offer help with Hurricane Laura recovery efforts in SWLA </div>
 	</div>
 	<div class="map-banner">
 		<div class="main-search-inner">
 			<div class="container">
-				<div class="row">
-					<div class="col-md-12 grid-full-width page-search mb-3">
-						<div class="main-search-input mt-0">
-							<div class="col-lg-3 col-sm-12">
-								<div class="form-group">
-									<input type="text" placeholder="What are you looking for?" class="form-control">
-								</div>
-							</div>
-							<div class="col-lg-3 col-sm-12">
-								<div class="form-group">
-									<input type="text" placeholder="Location" class="form-control">
-								</div>
-							</div>
-							<div class="col-lg-3 col-sm-12">
-								<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-									<option selected>Choose...</option>
-									<option value="1">Hotel</option>
-									<option value="2">Bar</option>
-									<option value="3">Food Courts</option>
-								</select>
-							</div>
-							<div class="col-lg-3 col-sm-12 text-right">
-								<a class="btn main-search-btn btn-radius btn-lg btn-primary text-white"><span
-										class="btn-inner--text">Search</span></a>
-							</div>
-						</div>
-					</div>
+				<div class="text-center">
+
+					<button (click)="routeTo(['listing', 'list', 'full-width'])" class="btn btn-primary front-page-btn mb-2 mr-0">
+						<div class="text-large">Offer Help</div>
+						<div class="text-small">Find recovery efforts to help with</div>
+					</button>
+
+
+					<button (click)="routeTo(['admin', 'add-list'])" class="btn btn-primary front-page-btn">
+						<div class="text-large">Find Help</div>
+						<div class="text-small">Request help with your recovery</div>
+					</button>
 				</div>
 			</div>
 		</div>
