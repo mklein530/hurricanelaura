@@ -33,7 +33,10 @@ export class GridFullWidthComponent implements OnInit {
   distances: string[] = [];
   page: number = 1;
   constructor(protected userService: UserService, protected postService: PostService, protected router: Router) { }
-
+  changePage($event) {
+    this.page = $event;
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
   filterData() {
     this.users = this.unfilteredData.filter(data => {
       let meetsCriteria = true;

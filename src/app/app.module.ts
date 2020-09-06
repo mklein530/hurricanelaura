@@ -35,9 +35,9 @@ import { AuthGuard } from './auth.guard';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
-  url: 'https://httpbin.org/post',
-  maxFilesize: 50,
-  acceptedFiles: 'image/*',
+  // url: 'https://httpbin.org/post',
+  // maxFilesize: 50,
+  // acceptedFiles: 'image/*',
 };
 
 @NgModule({
@@ -82,4 +82,4 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

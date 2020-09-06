@@ -154,7 +154,7 @@
                   <h3>Images</h3>
                </div>
                <!-- Dropzone -->
-               <dropzone (complete)="handleFileInput($event)" class="dropzone-container"
+               <dropzone (error)="alert('error')" (complete)="handleFileInput($event)" class="dropzone-container"
                   [message]="'Click or drag images here to upload'"></dropzone>
             </div>
             <!-- Section / End -->

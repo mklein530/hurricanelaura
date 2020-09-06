@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { MenuItems } from './menu-items';
 import { UserService } from '../../services/user-service';
@@ -11,16 +11,21 @@ declare var $: any;
    styleUrls: ['./Menu.component.scss'],
    encapsulation: ViewEncapsulation.None
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, AfterViewInit {
    user: User = null;
    selectedMenu: any = null;
    selectedSubMenu: any = null;
+   collapsed = false;
    constructor(public menuItems: MenuItems, private router: Router, protected userService: UserService) {
       this.router.events.subscribe((ev) => {
          if (ev instanceof NavigationEnd) {
             $('#navbar_global').removeClass('show');
          }
       });
+   }
+
+   ngAfterViewInit() {
+      this.menuItems.afterInit();
    }
 
    ngOnInit() {

@@ -1,31 +1,35 @@
 import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
-declare var $ : any;
+import { UserService } from '../../services/user-service';
+import { Router } from '@angular/router';
+declare var $: any;
 
 @Component({
-  selector: 'app-admin-sidebar',
-  templateUrl: './AdminSidebar.component.html',
-  styleUrls: ['./AdminSidebar.component.scss'],
-  encapsulation: ViewEncapsulation.None
+   selector: 'app-admin-sidebar',
+   templateUrl: './AdminSidebar.component.html',
+   styleUrls: ['./AdminSidebar.component.scss'],
+   encapsulation: ViewEncapsulation.None
 })
 export class AdminSidebarComponent implements OnInit {
 
    // sidebarIn : boolean = false;
-   constructor(){}
+   constructor(protected userService: UserService, protected router: Router) { }
 
-   ngOnInit(){}
+   ngOnInit() { }
 
-   ngAfterViewInit()
-   {
+   ngAfterViewInit() {
 
    }
 
-   toggleMenu()
-   {
-      if ( $('app-admin-panel').hasClass( "sidebar-in" ) ) {
+   async logout() {
+      await this.userService.logout();
+      return this.router.navigate(['/home']);
+   }
+
+   toggleMenu() {
+      if ($('app-admin-panel').hasClass("sidebar-in")) {
          $('app-admin-panel').removeClass("sidebar-in");
       }
-      else
-      {
+      else {
          $('app-admin-panel').addClass("sidebar-in");
       }
       // this.sidebarIn = !this.sidebarIn;

@@ -23,6 +23,10 @@ export class ListFullWidthComponent implements OnInit {
 
   constructor(protected userService: UserService, protected postService: PostService, protected router: Router) { }
 
+  changePage($event) {
+    this.page = $event;
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
   filterData() {
     this.Data = this.unfilteredData.filter(data => {
       let meetsCriteria = true;
@@ -35,7 +39,7 @@ export class ListFullWidthComponent implements OnInit {
       }
       if (!meetsCriteria) return false;
       if (this.filters.search) {
-        meetsCriteria = (data.title as string).toLowerCase().indexOf(this.filters.search.toLowerCase()) > -1;
+        meetsCriteria = data.title && (data.title as string).toLowerCase().indexOf(this.filters.search.toLowerCase()) > -1;
       }
       return meetsCriteria;
     });

@@ -61,41 +61,42 @@
               <div class="listing-item-container list-layout mb-4">
                 <div (click)="selectPost(list)" class="listing-item hover">
                   <!-- Image -->
-                  <div class="listing-item-image">
-                    <img class="item-image" [src]="list.image" alt="" />
+                  <div
+                    class="listing-item-image d-flex justify-content-center align-items-center text-center avatar-container">
+                    <img class="item-image img-fluid mr-2 avatar" [src]="list.image" alt="" />
                   </div>
                   <!-- Content -->
-                  <div class="listing-item-content">
-                    <span *ngIf="list.wantVolunteers" class="badge badge-pill list-banner badge-success text-uppercase">{{
-                      'Volunteers needed'
-                    }}</span>
-                    <span *ngIf="list.wantContractors"
-                      class="badge badge-pill list-banner badge-success text-uppercase">{{
-                      'Contractors needed'
-                    }}</span>
+                  <div class="listing-item-content d-inline">
+                    <div class="pull-right center">
+                      <span *ngIf="list.wantVolunteers"
+                        class="badge badge-pill list-banner badge-success text-uppercase">{{
+                        'Volunteers needed'
+                      }}</span>
+                      <span *ngIf="list.wantContractors"
+                        class="badge badge-pill list-banner badge-success text-uppercase">{{
+                        'Contractors needed'
+                      }}</span>
+                    </div>
+
                     <div class="listing-item-inner">
                       <!-- <Cajun UnionRating [rate]="list.rating" [review]="list.review"></Cajun UnionRating> -->
                       <h3>{{ list.title }}</h3>
-                      <span><small>{{ list.address }}</small></span>
-                      <div class="col-12 row mt-3">
+                      <span><small>{{ list.address }}</small>
+                        <i *ngIf="list.address === 'Loading...'" class="fa fa-spinner fa-spin ml-1"></i>
+                      </span>
+                      <div class="mt-3">
                         <div *ngFor="let category of list.categories; let i = index">
                           <span class="badge badge-pill badge-primary text-uppercase"
                             [ngClass]="{ 'ml-1': i > 0 }">{{ category }}</span>
                         </div>
                       </div>
-
-                      <div class="col-12">
-                        <div class="row">
-                          <div class="mr-1">
-                            <span
-                              class="badge badge-pill badge-primary text-uppercase">{{ (list.contractors || 0) + ' Contractors' }}</span>
-                          </div>
-                          <div>
-                            <span
-                              class="badge badge-pill badge-primary text-uppercase">{{ (list.volunteers || 0) + ' Volunteers' }}</span>
-                          </div>
-                        </div>
+                      <div class="row mt-1 ml-md-0">
+                        <span
+                          class="badge badge-pill badge-primary text-uppercase">{{ (list.contractors || 0) + ' Contractors' }}</span>
+                        <span
+                          class="badge badge-pill badge-primary text-uppercase">{{ (list.volunteers || 0) + ' Volunteers' }}</span>
                       </div>
+
                     </div>
                     <!-- <span class="round-pill like-banner d-block bg-primary"><i class="fa fa-heart-o"></i></span> -->
                   </div>
@@ -106,7 +107,7 @@
           </div>
           <!-- Pagination -->
           <div class="clearfix"></div>
-          <pagination-controls (pageChange)="page = $event"></pagination-controls>
+          <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
           <!-- Pagination / End -->
         </div>
       </div>

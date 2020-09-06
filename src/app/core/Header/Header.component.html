@@ -32,7 +32,7 @@
                <ul class="m-0 p-0">
                   <app-menu></app-menu>
                </ul>
-               <ul *ngIf="user" class="navbar-nav ml-lg-auto">
+               <ul *ngIf="user && !collapsed" class="navbar-nav ml-lg-auto">
                   <li class="nav-item dropdown">
                      <a class="nav-link dropdown-toggle" href="#" id="navbar-primary_dropdown_1" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img [src]="img"
@@ -45,7 +45,7 @@
                      </div>
                   </li>
                </ul>
-               <div class="header-widget">
+               <div *ngIf="!collapsed" class="header-widget">
                   <a [routerLink]="['/admin/add-list']" class="btn btn-neutral btn-icon btn-radius">Add Request <i
                         class="fa fa-plus"></i></a>
                </div>

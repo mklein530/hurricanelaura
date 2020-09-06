@@ -6,6 +6,8 @@ import { AdminMenuItems } from '../AdminHeader/admin-menu-items';
 import { UserService } from '../../services/user-service';
 import { User } from '../../models/user';
 
+declare var $: any;
+
 @Component({
    selector: 'app-header',
    templateUrl: './Header.component.html',
@@ -13,15 +15,24 @@ import { User } from '../../models/user';
    encapsulation: ViewEncapsulation.None,
    // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
 
    private _router: Subscription;
    url: string;
    user: User;
-
+   collapsed = false;
    isFixedClass: boolean = false;
 
    constructor(public adminMenuItems: AdminMenuItems, public userService: UserService, public router: Router, protected cdRef: ChangeDetectorRef) { }
+
+   ngAfterViewInit() {
+      let navbar_visible = $("#navbar_global").is(":visible");
+
+      $(window).resize(() => {
+         navbar_visible = $("#navbar_global").is(":visible");
+         this.collapsed = !navbar_visible;
+      });
+   }
 
    ngOnInit() {
       const interval = setInterval(() => {
@@ -59,9 +70,5 @@ export class HeaderComponent implements OnInit {
       } else {
          return false
       }
-   }
-
-   ngAfterViewInit() {
-
    }
 }

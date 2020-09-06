@@ -1,13 +1,55 @@
-.font-aw{
-    li{
-        text-align: center;
-        i{
-            font-size: 22px;
-        }
-        margin-bottom: 2rem;
-        margin-top: 1rem;
-        span{
-            display: block;
-        }
+.font-aw {
+    li {
+      text-align: center;
+      i {
+        font-size: 22px;
+      }
+      margin-bottom: 2rem;
+      margin-top: 1rem;
+      span {
+        display: block;
+      }
     }
-}
+  }
+  
+  .avatar-container {
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 60px;
+    -moz-background-clip: padding;
+    // border-radius: 60px;
+    background-clip: padding-box;
+    // margin: 7px 0 0 5px;
+    float: left;
+    width: 12rem;
+    height: 10rem;
+    background-size: cover;
+    background-position: center center;
+  }
+  
+  .width {
+    width: 15rem;
+  }
+  
+  .pull-right {
+    margin: 0 auto;
+  }
+  
+  .center {
+    margin-top: 5.5rem;
+  }
+  
+  .avatar {
+    max-width: 75%;
+    // height: 9rem;
+    // width: 15rem;
+    max-height: 75%;
+  }
+  
+  .info-badges {
+    // padding-left: 0.1rem;
+  }
+  
+  .d-inline {
+    display: inline;
+  }
+  

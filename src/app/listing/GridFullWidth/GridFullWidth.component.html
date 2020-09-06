@@ -61,21 +61,26 @@
                   <!-- Image -->
                   <div
                     class="listing-item-image d-flex justify-content-center align-items-center text-center avatar-container">
-                    <a [routerLink]="['/listing/detail/version2']"><img [src]="getAvatar(user)"
+                    <a class="width" [routerLink]="['/listing/detail/version2']"><img [src]="getAvatar(user)"
                         class="img-fluid rounded-circle shadow-lg mr-2 avatar" alt="" /></a>
                   </div>
                   <!-- Content -->
-                  <div class="listing-item-content">
-                    <span *ngIf="user.isContractor"
-                      class="badge badge-pill list-banner badge-success text-uppercase">{{ 'Contractor' }}</span>
-                    <span *ngIf="user.isVolunteer"
-                      class="badge badge-pill list-banner badge-success text-uppercase">{{ 'Volunteer' }}</span>
+                  <div class="listing-item-content d-inline">
+                    <div class="pull-right center">
+                      <span *ngIf="user.isContractor"
+                        class="badge badge-pill list-banner badge-success text-uppercase">{{ 'Contractor' }}</span>
+                      <span *ngIf="user.isVolunteer"
+                        class="badge badge-pill list-banner badge-success text-uppercase">{{ 'Volunteer' }}</span>
+                    </div>
+
                     <div class="listing-item-inner">
                       <!-- <Cajun UnionRating [rate]="list.rating" [review]="list.review"></Cajun UnionRating> -->
                       <a [routerLink]="" (click)="selectUser(user)">
                         <h3>{{ user.firstName + ' ' + user.lastName }}</h3>
                       </a>
-                      <span><small>{{ userDistance(user, i) }}</small></span>
+                      <span><small>{{ userDistance(user, i) }}</small>
+                        <i *ngIf="userDistance(user, i) === 'Loading...'" class="fa fa-spinner fa-spin ml-1"></i>
+                      </span>
                       <div class="mt-1">
                         <span class="star" *ngFor="let rating of ratings(user); let i = index"
                           [ngClass]="{ 'ml-1': i > 0 }"><i class="fa fa-star star"></i></span>
@@ -106,7 +111,7 @@
           </div>
           <!-- Pagination -->
           <div class="clearfix"></div>
-          <pagination-controls (pageChange)="page = $event"></pagination-controls>
+          <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
           <!-- Pagination / End -->
         </div>
       </div>
