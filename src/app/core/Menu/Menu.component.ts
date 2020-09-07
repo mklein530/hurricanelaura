@@ -71,9 +71,4 @@ export class MenuComponent implements OnInit, AfterViewInit {
       }
       return ['/', value];
    }
-
-   logout() {
-      this.userService.logout();
-      this.router.navigate(['/']);
-   }
 }

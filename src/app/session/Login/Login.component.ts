@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/co
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user-service';
+import { BaseComponent } from '../../adminPages/BaseComponent';
 
 @Component({
   selector: 'login',
@@ -9,12 +10,13 @@ import { UserService } from 'src/app/services/user-service';
   styleUrls: ['./Login.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class LoginComponent implements OnInit {
-  form: FormGroup;
+export class LoginComponent extends BaseComponent implements OnInit {
   loading = false;
   error = '';
 
-  constructor(protected router: Router, protected formBuilder: FormBuilder, protected authService: UserService) {}
+  constructor(protected router: Router, protected formBuilder: FormBuilder, protected authService: UserService) {
+    super();
+  }
 
   get passwordError() {
     const errors = this.form.get('password').errors;
@@ -47,7 +49,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 
   routeToSignup() {
     return this.router.navigate(['signup']);
@@ -55,16 +57,20 @@ export class LoginComponent implements OnInit {
 
   async onSubmit() {
     this.loading = true;
-    this.error = '';
-    try {
-      await this.authService.login(this.form.get('email').value, this.form.get('password').value);
-      this.router.navigateByUrl('/admin/profile');
-    } catch (error) {
-      if (error && (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found')) {
-        this.error = 'Username or password is invalid';
+    this.form.markAllAsTouched();
+    this.form.markAsDirty();
+    if (this.form.valid) {
+      this.error = '';
+      try {
+        await this.authService.login(this.form.get('email').value, this.form.get('password').value);
+        this.router.navigateByUrl('/admin/profile');
+      } catch (error) {
+        if (error && (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found')) {
+          this.error = 'Username or password is invalid';
+        }
+      } finally {
+        this.loading = false;
       }
-    } finally {
-      this.loading = false;
     }
   }
 }

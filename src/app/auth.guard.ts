@@ -33,6 +33,6 @@ export class AuthGuard implements CanActivate {
   }
 
   routeToLogin() {
-    return this.myRoute.navigateByUrl('/');
+    return this.myRoute.navigateByUrl('/login');
   }
 }

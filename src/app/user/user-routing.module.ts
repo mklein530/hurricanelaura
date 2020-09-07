@@ -6,7 +6,7 @@ import { EmailLoginComponent } from './email-login/email-login.component';
 import { LoginComponent } from '../session/Login/Login.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  // { path: '', component: LoginComponent },
   { path: 'signup', component: SignUpComponent },
   { path: 'login', component: LoginComponent }
 ];

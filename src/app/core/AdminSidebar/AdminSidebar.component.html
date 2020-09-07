@@ -21,7 +21,7 @@
           <a [routerLink]="['/admin/profile']"><i class="fa fa-user"></i> My Profile</a>
         </li>
         <li>
-          <a [href]="logout()"><i class="fa fa-sign-out"></i> Logout</a>
+          <a (click)="logout()" [href]=""><i class="fa fa-sign-out"></i> Logout</a>
         </li>
       </ul>
     </div>

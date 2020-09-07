@@ -14,23 +14,24 @@ export const AppRoutes: Routes = [
   {
     path: '',
     component: FrontendPanelLayoutComponent,
-    children: [
-      {
-        path: 'home',
-        loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'listing',
-        loadChildren: () => import('./listing/listing.module').then((m) => m.ListingModule),
-        canActivate: [AuthGuard],
-      },
-      {
-        path: 'pages',
-        loadChildren: () => import('./pages/pages.module').then((m) => m.PagesModule),
-        canActivate: [AuthGuard],
-      },
-    ],
+    children:
+      [
+        {
+          path: 'home',
+          loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+          canActivate: [AuthGuard]
+        },
+        {
+          path: 'listing',
+          loadChildren: () => import('./listing/listing.module').then((m) => m.ListingModule),
+          canActivate: [AuthGuard],
+        },
+        {
+          path: 'pages',
+          loadChildren: () => import('./pages/pages.module').then((m) => m.PagesModule),
+          canActivate: [AuthGuard],
+        },
+      ],
   },
   {
     path: 'admin',

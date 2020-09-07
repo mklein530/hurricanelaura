@@ -41,7 +41,7 @@
                         <a [state]="{ user: user }" [queryParams]="{ user: user.uid }" class="dropdown-item"
                            [routerLink]="['pages', 'user-profile']">Profile</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" (click)="logout()">Logout</a>
+                        <a class="dropdown-item" [href]="" (click)="logout()">Logout</a>
                      </div>
                   </li>
                </ul>
