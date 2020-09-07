@@ -2,7 +2,9 @@
    <ul id="responsive">
       <li *ngFor="let menuitem of menuItems.getAll()" [ngClass]="{'open-menu': selectedMenu == menuitem.name}">
          <a class="current" [routerLink]="routerLink(menuitem.state)"
-            *ngIf="menuitem.type === 'link'">{{ menuitem.name }}</a>
+            *ngIf="menuitem.type === 'link' && !menuitem.click">{{ menuitem.name }}</a>
+         <a class="current" [href]="" (click)="clickEvent(menuitem)"
+            *ngIf="menuitem.type === 'link' && menuitem.click">{{ menuitem.name }}</a>
          <a class="current" *ngIf="menuitem.type === 'sub'" (click)="menuClick(menuitem.name)">{{ menuitem.name }}</a>
          <ul *ngIf="menuitem.type === 'sub'">
             <li *ngFor="let childitem of menuitem.children"

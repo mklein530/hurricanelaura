@@ -8,6 +8,7 @@ export interface Menu {
   name: string;
   type?: string;
   children?: Menu[];
+  click?: () => any;
 }
 
 const MENUITEMS = [
@@ -66,6 +67,19 @@ export class MenuItems {
     type: 'link',
     children: []
   };
+  logout = {
+    state: ['session', 'login'],
+    name: 'Logout',
+    type: 'link',
+    children: [],
+    click: () => this.userService.logout()
+  }
+  dashboard = {
+    state: ['admin', 'list'],
+    name: 'Dashboard',
+    type: 'link',
+    // children: []
+  }
 
   constructor(protected userService: UserService) {
     this.user = this.userService.user;
@@ -81,7 +95,10 @@ export class MenuItems {
   }
 
   getAll() {
-    const collapsedItems = this.collapsed ? [this.addRequest, this.profile] : [];
+    const collapsedItems = this.collapsed ? [this.addRequest, this.dashboard, this.profile] : [];
+    if (this.user && this.collapsed) {
+      collapsedItems.push(this.logout);
+    }
     if (!this.user) {
       return [...this.withRegistration, ...collapsedItems];
     }

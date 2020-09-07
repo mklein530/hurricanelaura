@@ -71,4 +71,9 @@ export class MenuComponent implements OnInit, AfterViewInit {
       }
       return ['/', value];
    }
+
+   clickEvent(item: any) {
+      const route = this.routerLink(item.state);
+      return Promise.all([this.router.navigate(route), item.click()])
+   }
 }

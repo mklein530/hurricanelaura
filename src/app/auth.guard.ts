@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { UserService } from './services/user-service';
 
-const canAccess = ['home', 'login', 'signup'];
+const canAccess = ['home', 'login', 'signup', 'policy', 'terms'];
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private userService: UserService, private myRoute: Router) { }

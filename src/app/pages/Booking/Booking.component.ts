@@ -1,8 +1,9 @@
 import { Component, OnInit, AfterViewInit, ViewEncapsulation, ViewChild, Inject } from '@angular/core';
 import * as moment from 'moment';
 import { MatDialogRef, MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BaseComponent } from 'src/app/adminPages/BaseComponent';
+import { BaseComponent } from '../../adminPages/BaseComponent';
 import { SnackService } from 'src/app/services/snack-service';
+import { UserService } from '../../services/user-service';
 @Component({
   selector: 'booking',
   templateUrl: './Booking.component.html',
@@ -35,12 +36,14 @@ export class BookingComponent extends BaseComponent implements OnInit {
   public color = 'primary';
   @ViewChild('picker') picker: any;
 
-  constructor(protected matDialog: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) protected data: any, protected snackService: SnackService) {
+  constructor(protected matDialog: MatDialogRef<any>, @Inject(MAT_DIALOG_DATA) protected data: any, protected snackService: SnackService,
+    protected userService: UserService) {
     super();
   }
 
   ngOnInit() {
     this.form = this.data.form;
+    this.userService.modalShowing = true;
     super.ngOnInit();
   }
 
@@ -61,6 +64,7 @@ export class BookingComponent extends BaseComponent implements OnInit {
   }
 
   close() {
+    this.userService.modalShowing = false;
     this.matDialog.close();
   }
 
@@ -69,6 +73,7 @@ export class BookingComponent extends BaseComponent implements OnInit {
     if (this.form.invalid) {
       this.error = 'Your form has errors';
     } else {
+      this.userService.modalShowing = false;
       this.matDialog.close(this.form.value);
     }
   }

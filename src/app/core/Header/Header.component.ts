@@ -34,6 +34,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       });
    }
 
+   get show() {
+      const isMobile = typeof (window as any).isMobile === 'function' && (window as any).isMobile();
+      if (isMobile && this.userService.modalShowing) {
+         return false;
+      }
+      return true;
+   }
+
    ngOnInit() {
       const interval = setInterval(() => {
          if (this.userService.user) {

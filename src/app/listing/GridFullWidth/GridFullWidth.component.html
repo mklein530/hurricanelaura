@@ -85,11 +85,12 @@
                         <span class="star" *ngFor="let rating of ratings(user); let i = index"
                           [ngClass]="{ 'ml-1': i > 0 }"><i class="fa fa-star star"></i></span>
                       </div>
-                      <div class="mt-1 info-badges">
+
+                      <div class="row mt-1 ml-md-0">
                         <span
-                          class="badge badge-pill badge-primary text-uppercase">{{ getStat(user, 'numReviews') + ' Reviews' }}</span>
+                          class="badge badge-pill badge-primary text-uppercase">{{ getStat(user, 'numReviews') + ' Reviews'}}</span>
                         <span
-                          class="badge badge-pill badge-primary text-uppercase ml-2">{{ getStat(user, 'jobsDone') + ' Jobs Done' }}</span>
+                          class="badge badge-pill badge-primary text-uppercase">{{ getStat(user, 'jobsDone') + ' Jobs Done' }}</span>
                       </div>
                       <!-- <div class="col-12">
                         <div class="row">

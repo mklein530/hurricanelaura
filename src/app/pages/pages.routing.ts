@@ -15,7 +15,7 @@ export const PagesRoutes: Routes = [{
   component: UserProfileComponent
 },
 {
-  path: 'pricing',
+  path: 'terms',
   component: PricingComponent
 },
 {
@@ -35,7 +35,7 @@ export const PagesRoutes: Routes = [{
   component: AboutComponent
 },
 {
-  path: 'invoice',
+  path: 'privacy-policy',
   component: InvoiceComponent
 },
 {

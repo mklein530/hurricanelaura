@@ -10,6 +10,7 @@ import { formErrors } from '../../models/error';
 import { UserService } from '../../services/user-service';
 import { geohash } from '../../services/geolocation';
 import { BaseComponent } from '../../adminPages/BaseComponent';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -29,7 +30,8 @@ export class AddListComponent extends BaseComponent implements OnInit, AfterView
       protected postService: PostService,
       protected userService: UserService,
       protected snackService: SnackService,
-      protected storageService: StorageService
+      protected storageService: StorageService,
+      protected router: Router
    ) {
       super();
    }
@@ -94,6 +96,14 @@ export class AddListComponent extends BaseComponent implements OnInit, AfterView
             this.form.get('geohash').setValue(geohash(this.coords.lat, this.coords.lng));
             await this.postService.createPost(this.form.value, this.form.get('id').value);
             this.snackService.showMessage('Successfully created post!');
+            this.router.navigate(['listing', 'detail', 'version2'], {
+               queryParams: {
+                  postId: this.form.get('id').value
+               },
+               state: {
+                  post: this.form.value
+               },
+            });
          } catch (error) {
             this.snackService.showMessage('Something went wrong.');
          }

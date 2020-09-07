@@ -16,57 +16,22 @@
       <div class="row mb-4">
         <div class="col-md-6">
           <div class="form-group">
-            <input
-              [formControl]="form.get('responder').get('firstName')"
-              type="text"
-              placeholder="First Name"
-              class="form-control form-control-alternative"
-            />
+            <input [formControl]="form.get('responder').get('firstName')" type="text" placeholder="First Name"
+              class="form-control form-control-alternative" />
             <span class="error-message">{{ getError(form.get('responder').get('firstName')) }}</span>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <input
-              [formControl]="form.get('responder').get('lastName')"
-              type="text"
-              placeholder="Last Name"
-              class="form-control form-control-alternative"
-            />
-          </div>
-          <span class="error-message">{{ getError(form.get('responder').get('lastName')) }}</span>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <input
-              [formControl]="form.get('responder').get('email')"
-              type="text"
-              placeholder="E mail"
-              class="form-control form-control-alternative"
-            />
+            <input [formControl]="form.get('responder').get('email')" type="text" placeholder="E mail"
+              class="form-control form-control-alternative" />
             <span class="error-message">{{ getError(form.get('responder').get('email')) }}</span>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <input
-              [formControl]="form.get('responder').get('phoneNumber')"
-              type="text"
-              placeholder="Phone"
-              class="form-control form-control-alternative"
-            />
-            <span class="error-message">{{ getError(form.get('responder').get('phoneNumber')) }}</span>
           </div>
         </div>
         <div class="col-md-12">
           <div class="form-group">
-            <textarea
-              formControlName="message"
-              class="form-control form-control-alternative"
-              placeholder="Comments"
-              id="exampleFormControlTextarea1"
-              rows="3"
-            ></textarea>
+            <textarea formControlName="message" class="form-control form-control-alternative" placeholder="Comments"
+              id="exampleFormControlTextarea1" rows="3"></textarea>
             <span class="error-message">{{ errors.message }}</span>
           </div>
         </div>

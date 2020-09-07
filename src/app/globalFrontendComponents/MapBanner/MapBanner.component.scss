@@ -19,8 +19,9 @@ agm-map {
 }
 
 .header {
-   font-size: 5vh;
-   margin-bottom: 1.5rem;
+   font-size: 4.2vh;
+   margin-bottom: 2rem;
+   line-height: 2rem;
 }
 
 .subheader {
@@ -28,8 +29,9 @@ agm-map {
 }
 
 .front-page-btn {
-   width: 60vw;
-   margin: 0 auto;
+   width: 55%;
+   display: block;
+   // margin: 0 auto;
    border-radius: 5rem;
    word-wrap: break-word;
    overflow-wrap: normal;
@@ -46,4 +48,20 @@ agm-map {
 .text-large {
    font-size: 3vh;
    text-transform: none;
+}
+
+.btn-facebook {
+	color: #fff;
+	background-color: #4C67A1;
+}
+.btn-facebook:hover {
+	color: #fff;
+	background-color: #405D9B;
+}
+.btn-facebook:focus {
+	color: #fff;
+}
+
+.fb-share-button {
+   width: auto;
 }

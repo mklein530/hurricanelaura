@@ -32,10 +32,6 @@
   margin: 0 auto;
 }
 
-.center {
-  margin-top: 5.5rem;
-}
-
 .avatar {
   max-width: 75%;
   height: 9rem;
@@ -43,8 +39,11 @@
   max-height: 75%;
 }
 
-.info-badges {
-  // padding-left: 0.1rem;
+@media (min-width: 370px) {
+  /* CSS that should be displayed if width is equal to or less than 800px goes here */
+  .center {
+    margin-top: 5.5rem;
+  }
 }
 
 .d-inline {

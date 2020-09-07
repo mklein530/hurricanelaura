@@ -19,22 +19,24 @@
 	<div class="image-section">
 		<div class="header">Hurricane Laura Recovery</div>
 		<div class="subheader">Find and offer help with Hurricane Laura recovery efforts in SWLA </div>
+
 	</div>
 	<div class="map-banner">
 		<div class="main-search-inner">
 			<div class="container">
 				<div class="text-center">
+					<div class="d-flex flex-column flex-md-row justify-content-center align-items-center">
+						<button (click)="routeTo(['listing', 'list', 'full-width'])"
+							class="btn btn-primary front-page-btn mb-2 ml-2 mb-md-0 ml-md-0">
+							<div class="text-large">Find Work</div>
+							<!-- <div class="text-small">Find recovery efforts to help with.</div> -->
+						</button>
+						<button (click)="router.navigateByUrl('/admin/add-list')" class="btn btn-primary front-page-btn">
+							<div class="text-large">Find Help</div>
+							<!-- <div class="text-small">Request help with Hurricane recovery.</div> -->
+						</button>
+					</div>
 
-					<button (click)="routeTo(['listing', 'list', 'full-width'])" class="btn btn-primary front-page-btn mb-2 mr-0">
-						<div class="text-large">Offer Help</div>
-						<div class="text-small">Find recovery efforts to help with.</div>
-					</button>
-
-
-					<button (click)="router.navigateByUrl('/admin/add-list')" class="btn btn-primary front-page-btn">
-						<div class="text-large">Find Help</div>
-						<div class="text-small">Request help with Hurricane recovery.</div>
-					</button>
 				</div>
 			</div>
 		</div>

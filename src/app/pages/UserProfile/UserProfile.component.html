@@ -19,14 +19,16 @@
               </div>
               <div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
                 <div class="card-profile-actions py-4 mt-lg-0">
-                  <btn *ngIf="!isCurrentUser" (click)="openReviewModal()" class="btn btn-sm btn-info mr-4">Review</btn>
-                  <btn *ngIf="!isCurrentUser" (click)="openMessageModal()" class="btn btn-sm btn-default float-right">
-                    Message</btn>
-                  <btn *ngIf="isCurrentUser" (click)="editProfile()" class="btn btn-sm btn-default float-right">Edit
-                  </btn>
+                  <button *ngIf="!isCurrentUser" (click)="openReviewModal()"
+                    class="btn btn-sm btn-info mr-4">Review</button>
+                  <button *ngIf="!isCurrentUser" (click)="openMessageModal()"
+                    class="btn btn-sm btn-default float-right">
+                    Message</button>
+                  <button *ngIf="isCurrentUser" (click)="editProfile()" class="btn btn-sm btn-default float-right">Edit
+                  </button>
                 </div>
               </div>
-              <div class="col-lg-4 order-lg-1">
+              <div class="col-lg-4 order-lg-1 mt-0 mt-md-5">
                 <div class="card-profile-stats d-flex justify-content-center">
                   <div>
                     <span class="heading">{{ user.jobsDone || 0 }}</span>
@@ -124,8 +126,8 @@
                   Respond
                 </button>
               </div>
-              <div *ngIf="review.response" class="col-8 review-response-container">
-                <div class="message-bubble">
+              <div *ngIf="review.response" class="col-11 review-response-container">
+                <div class="message-bubble w-100">
                   <div class="message-avatar"><img [src]="getAvatar(user)" alt="" /></div>
                   <div class="message-text">
                     <p>

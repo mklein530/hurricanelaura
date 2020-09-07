@@ -7,6 +7,7 @@
                <!-- Headline -->
                <div class="add-listing-headline">
                   <h3>Details</h3>
+                  <h5 class="mt-2">Enter some information about your request.</h5>
                </div>
                <div class="row with-forms">
                   <div class="col-12">
@@ -154,7 +155,7 @@
                   <h3>Images</h3>
                </div>
                <!-- Dropzone -->
-               <dropzone (error)="alert('error')" (complete)="handleFileInput($event)" class="dropzone-container"
+               <dropzone (complete)="handleFileInput($event)" class="dropzone-container"
                   [message]="'Click or drag images here to upload'"></dropzone>
             </div>
             <!-- Section / End -->
@@ -166,7 +167,7 @@
             <!-- Section -->
 
             <!-- Section / End -->
-            <a href="#" class="btn btn-danger">Preview <i class="fa fa-arrow-circle-right"></i></a>
+            <!-- <a href="#" class="btn btn-danger">Preview <i class="fa fa-arrow-circle-right"></i></a> -->
             <button (click)="savePosting()" class="btn btn-primary">Create Post</button>
          </div>
       </div>

@@ -17,6 +17,7 @@ export class UserService extends BaseFirestoreService<User> {
   //@ts-ignore
   cachedDetails: { email: string; password: string } = {};
   authSubscription: firebase.Unsubscribe;
+  modalShowing = false;
 
   constructor(
     protected firestore: AngularFirestore,
