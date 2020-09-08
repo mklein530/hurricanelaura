@@ -20,6 +20,7 @@ export class ListFullWidthComponent implements OnInit {
     helper: 'all',
     search: ''
   };
+  loading = false;
 
   constructor(protected userService: UserService, protected postService: PostService, protected router: Router) { }
 
@@ -30,8 +31,8 @@ export class ListFullWidthComponent implements OnInit {
   filterData() {
     this.Data = this.unfilteredData.filter(data => {
       let meetsCriteria = true;
-      if (this.filters.category !== 'all') {
-        meetsCriteria = data.categories.includes(this.filters.category);
+      if (this.filters.category !== 'all' && this.filters.category !== 'Category') {
+        meetsCriteria = (data.categories || []).includes(this.filters.category);
       }
       if (!meetsCriteria) return false;
       if (this.filters.helper !== 'all') {
@@ -95,7 +96,10 @@ export class ListFullWidthComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.loading = true;
     const addresses = await this.buildPosts();
+    this.unfilteredData = this.Data;
+    this.loading = false;
     this.Data = await this.resolveAddresses(addresses);
     this.unfilteredData = this.Data;
   }

@@ -17,11 +17,25 @@
   width: 4.5rem;
 }
 
-.max-img {
-  max-width: 20rem;
-  max-height: 40rem;
-  position: absolute;
-  right: 1.5rem;
-  top: 2.9rem;
-  object-fit: cover;
+@media(max-width: 992px) {
+  .max-img {
+    max-width: 20rem;
+    max-height: 40rem;
+    position: absolute;
+    right: 1.5rem;
+    top: 2.9rem;
+    object-fit: cover;
+  }
+}
+
+
+@media(min-width: 1200px) {
+  .max-img {
+    max-width: 20rem;
+    max-height: 40rem;
+    position: absolute;
+    right: 6rem;
+    top: 2.9rem;
+    object-fit: cover;
+  }
 }

@@ -43,4 +43,5 @@ export function getCategories(post: Posting) {
   if (categories.length === 0) {
     return ['cleanup'];
   }
+  return categories;
 }

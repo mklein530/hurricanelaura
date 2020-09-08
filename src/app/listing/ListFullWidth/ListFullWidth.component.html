@@ -1,8 +1,16 @@
+
+
 <div class="main-wrapper">
+  <div *ngIf="loading" class="loading">
+    <mat-progress-spinner
+      *ngIf="loading"
+      mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
   <!--Title Bar -->
-  <title-bar title="Requests" subtitle="Find requests for help"></title-bar>
+  <title-bar *ngIf="!loading" title="Requests" subtitle="Find requests for help"></title-bar>
   <!-- Content  -->
-  <div class="content">
+  <div *ngIf="!loading" class="content">
     <div class="container">
       <div class="row">
         <!-- Search -->

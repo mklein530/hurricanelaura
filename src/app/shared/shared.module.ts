@@ -18,6 +18,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReviewModalComponent } from '../globalFrontendComponents/review-modal/review-modal.component';
 import { MekFieldComponent } from '../globalFrontendComponents/Field/mek-field.component';
 import { MessageModalComponent } from '../globalFrontendComponents/review-response-modal/review-response-modal.component';
@@ -40,6 +41,7 @@ const modules = [
   MatFormFieldModule,
   MatInputModule,
   NgxMatMomentModule,
+  MatProgressSpinnerModule,
   MatSnackBarModule,
   NgxMatDatetimePickerModule,
   NgxMatTimepickerModule,

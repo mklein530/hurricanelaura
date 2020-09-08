@@ -11,7 +11,7 @@
       }
     }
   }
-  
+
   .avatar-container {
     -webkit-background-clip: padding-box;
     -moz-border-radius: 60px;
@@ -25,31 +25,39 @@
     background-size: cover;
     background-position: center center;
   }
-  
+
   .width {
     width: 15rem;
   }
-  
+
   .pull-right {
     margin: 0 auto;
   }
-  
+
   .center {
     margin-top: 5.5rem;
   }
-  
+
   .avatar {
     max-width: 75%;
     // height: 9rem;
     // width: 15rem;
     max-height: 75%;
   }
-  
+
   .info-badges {
     // padding-left: 0.1rem;
   }
-  
+
   .d-inline {
     display: inline;
   }
-  
+
+  .loading {
+    margin:auto;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  position:fixed
+  }

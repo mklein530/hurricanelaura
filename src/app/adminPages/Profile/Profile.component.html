@@ -8,7 +8,7 @@
           <!-- Avatar -->
           <!-- Details -->
           <div class="max-img">
-            <img [src]="form.get('avatar').value" class="img-fluid rounded-circle shadow-lg mr-1 profile-image"
+            <img [src]="form.get('avatar').value || '../../../assets/images/avatar-placeholder.png'" class="img-fluid rounded-circle shadow-lg mr-1 profile-image"
               alt="" />
           </div>
 

@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
    }
 
    get img() {
-      if (this.userService.user) {
+      if (this.userService.user && this.userService.user.avatar) {
          return this.userService.user.avatar;
       }
       return 'assets/images/avatar-placeholder.png';
@@ -64,12 +64,12 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       if (this.user && (this.user.firstName || this.user.lastName)) {
          return this.user.firstName + ' ' + this.user.lastName;
       }
-      return 'Name unknown';
+      return this.user.email;
    }
 
    async logout() {
       await this.userService.signOut();
-      return this.router.navigateByUrl('/');
+      return this.router.navigateByUrl('/login');
    }
 
    isFixedHeader() {
