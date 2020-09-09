@@ -1,5 +1,6 @@
 import { Address } from './address';
 import { BaseEntity } from './base-entity';
+import { Validators } from '@angular/forms';
 
 export class User extends BaseEntity {
   uid: string = '';
@@ -22,4 +23,8 @@ export class User extends BaseEntity {
   rating: number = 3;
   numReviews: number = 0;
   jobsDone: number = 0;
+
+  validations = {
+    firstName: ['', Validators.required]
+  }
 }

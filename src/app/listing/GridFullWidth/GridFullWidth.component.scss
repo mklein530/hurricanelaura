@@ -33,7 +33,7 @@
 }
 
 .avatar {
-  max-width: 65%;
+  max-width: 62%;
   width: 15rem;
   max-height: 75%;
 }
@@ -47,4 +47,8 @@
 
 .d-inline {
   display: inline;
+}
+
+.add {
+  z-index: 9999;
 }

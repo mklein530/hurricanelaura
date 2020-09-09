@@ -20,7 +20,7 @@ export class BaseComponent {
     }
   }
 
-  getErrors(formControlName: string) {
+  getErrors = (formControlName: string) => {
     const errors = this.form.get(formControlName) && this.form.get(formControlName).errors;
     if (errors) {
       const keys = Object.keys(errors);

@@ -99,4 +99,8 @@ export class GridFullWidthComponent implements OnInit {
   ratings(user: User) {
     return Array(user.rating || 3).fill(1);
   }
+
+  routeToProfile() {
+    return this.router.navigate(['admin', 'profile']);
+  }
 }

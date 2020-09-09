@@ -4,7 +4,10 @@
     <div class="col-lg-10 col-md-12">
       <div class="dashboard-list-box mb-5">
         <div class="dashboard-list-box-static">
-          <h4 class="mb-3">Profile Details</h4>
+          <h4 class="">Profile Details</h4>
+          <h5 class="mb-3 w-75">If you would like to appear in the list of helpers, please fill out some basic
+            information.
+            This will also prevent you from having to fill out these details again when using the website.</h5>
           <!-- Avatar -->
           <!-- Details -->
           <div class="max-img">
@@ -42,6 +45,7 @@
               <div class="form-group">
                 <input formControlName="firstName" type="text" placeholder="First Name"
                   class="form-control form-control-alternative" />
+                <span class="error-message">{{ errors.firstName }}</span>
               </div>
             </div>
             <div>
@@ -69,6 +73,7 @@
             <div class="form-group">
               <input formControlName="email" type="text" placeholder="E-mail"
                 class="form-control form-control-alternative" />
+              <span class="error-message">{{ errors.email }}</span>
             </div>
             <div class="form-group">
               <input autocomplete="nope" [value]="address" type="search" placeholder="Address"

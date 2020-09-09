@@ -1,9 +1,11 @@
 <div class="main-wrapper">
   <!--Title Bar -->
-  <title-bar title="Helpers" subtitle="Find contractors and volunteers"></title-bar>
+  <title-bar title="Helpers" subtitle="Find contractors and volunteers">
+  </title-bar>
   <!-- Content  -->
   <div class="content">
     <div class="container">
+      <button class="btn btn-primary mb-4" (click)="routeToProfile()">Add me to the list</button>
       <div class="row">
         <!-- Search -->
         <div class="col-md-12 grid-full-width page-search mb-3">
@@ -13,6 +15,7 @@
                 <input [ngModel]="filters.search" (ngModelChange)="setFilter($event, 'search')" type="text"
                   placeholder="Search for helpers..." class="form-control" />
               </div>
+
             </div>
             <div class="col-lg-4 col-sm-8">
               <select (change)="setFilter($event.target.value, 'rating')" class="custom-select my-1 mr-sm-2"
@@ -36,6 +39,7 @@
             </div>
           </div>
         </div>
+
         <!-- Search Section / End -->
         <div class="col-md-12">
           <!-- Sorting - Filtering Section -->

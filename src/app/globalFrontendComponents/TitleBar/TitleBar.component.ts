@@ -43,6 +43,6 @@ export class TitleBarComponent implements OnInit {
 
   async logout() {
     await this.userService.signOut();
-    return this.router.navigateByUrl('/');
+    return this.router.navigateByUrl('/login');
   }
 }
