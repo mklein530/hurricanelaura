@@ -64,7 +64,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       if (this.user && (this.user.firstName || this.user.lastName)) {
          return this.user.firstName + ' ' + this.user.lastName;
       }
-      return this.user.email;
+      return this.user.email ? this.user.email.split('@')[0] : '';
    }
 
    async logout() {

@@ -108,8 +108,8 @@ export class UserService extends BaseFirestoreService<User> {
   }
 
   async signOut() {
-    await this.auth.signOut();
     this.user = null;
+    await this.auth.signOut();
   }
 
   sendForgotPasswordEmail(email: string): Promise<void> {
