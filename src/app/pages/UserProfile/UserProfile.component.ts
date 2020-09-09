@@ -39,7 +39,7 @@ export class UserProfileComponent implements OnInit {
     protected modal: MatDialog,
     protected router: Router,
     protected messageService: MessageService
-  ) {}
+  ) { }
 
   subscribeToQueryParams(onQueryParams: (user: string) => any) {
     return this.route.queryParams.subscribe(async (params) => {
@@ -113,7 +113,7 @@ export class UserProfileComponent implements OnInit {
     return this.distances.length ? this.distances[index] : 'Loading...';
   }
 
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 
   getAvatar(user: User) {
     if (user.avatar) {
@@ -152,7 +152,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   get isCurrentUser() {
-    return this.userService.user.uid === this.user.uid;
+    return this.userService.user && this.userService.user.uid === this.user.uid;
   }
 
   openReviewModal() {

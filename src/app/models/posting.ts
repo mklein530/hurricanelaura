@@ -31,6 +31,7 @@ export class Posting extends BaseEntity {
 
   validations = {
     email: ['', Validators.email, Validators.required],
+    name: ['', Validators.required],
     title: ['', Validators.required],
     description: ['', Validators.required],
   };

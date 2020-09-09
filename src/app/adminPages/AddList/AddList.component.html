@@ -29,7 +29,7 @@
                   <div class="col-md-6">
                      <div class="form-group">
                         <input type="text" placeholder="Address" class="form-control form-control-alternative"
-                           ngx-google-places-autocomplete #placesRef="ngx-places"
+                           ngx-google-places-autocomplete #placesRef="ngx-places" autocomplete="no"
                            (onAddressChange)="handleAddressChange($event)" />
                         <span class="error-message"></span>
                      </div>
@@ -107,9 +107,11 @@
                   <div class="row with-forms">
                      <div class="col-md-12">
                         <div class="form-group">
-                           <input type="text" placeholder="Name" formControlName="name"
+                           <input type="text" placeholder="Name" [formControl]="form.get('name')"
                               class="form-control form-control-alternative" />
+                           <span class="error-message">{{ errors.name }}</span>
                         </div>
+
                      </div>
                   </div>
                   <!-- Row -->

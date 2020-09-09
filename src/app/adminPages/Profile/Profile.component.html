@@ -8,8 +8,8 @@
           <!-- Avatar -->
           <!-- Details -->
           <div class="max-img">
-            <img [src]="form.get('avatar').value || '../../../assets/images/avatar-placeholder.png'" class="img-fluid rounded-circle shadow-lg mr-1 profile-image"
-              alt="" />
+            <img [src]="form.get('avatar').value || '../../../assets/images/avatar-placeholder.png'"
+              class="img-fluid rounded-circle shadow-lg mr-1 profile-image" alt="" />
           </div>
 
           <div [formGroup]="form" class="my-profile">
@@ -71,8 +71,8 @@
                 class="form-control form-control-alternative" />
             </div>
             <div class="form-group">
-              <input [value]="address" type="text" placeholder="Address" class="form-control form-control-alternative"
-                ngx-google-places-autocomplete #placesRef="ngx-places"
+              <input autocomplete="nope" [value]="address" type="search" placeholder="Address"
+                class="form-control form-control-alternative" ngx-google-places-autocomplete #placesRef="ngx-places"
                 (onAddressChange)="handleAddressChange($event)" />
             </div>
             <div class="form-group">

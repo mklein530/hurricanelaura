@@ -53,7 +53,7 @@ const MENUITEMS = [
 
 @Injectable()
 export class MenuItems {
-  user: User = null;
+  user: firebase.User = null;
   collapsed = false;
   withRegistration = [...MENUITEMS, {
     state: ['session', 'login'],
@@ -82,7 +82,7 @@ export class MenuItems {
   }
 
   constructor(protected userService: UserService) {
-    this.user = this.userService.user;
+    this.user = this.userService.fbUser;
   }
 
   afterInit() {
@@ -96,10 +96,10 @@ export class MenuItems {
 
   getAll() {
     const collapsedItems = this.collapsed ? [this.addRequest, this.profile] : [];
-    if (this.user && this.collapsed) {
+    if (this.user && !this.user.isAnonymous && this.collapsed) {
       collapsedItems.push(this.logout);
     }
-    if (!this.user) {
+    if (!this.user || this.user.isAnonymous) {
       return [...this.withRegistration, ...collapsedItems];
     }
     return [...MENUITEMS, ...collapsedItems];

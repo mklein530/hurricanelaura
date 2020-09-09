@@ -64,7 +64,7 @@ export class AddListComponent extends BaseComponent implements OnInit, AfterView
          ...new Posting(),
          id: this.postService.createId(),
          user,
-         name: user.firstName + ' ' + user.lastName,
+         name: user.firstName || user.lastName ? user.firstName + ' ' + user.lastName : '',
          email: user.email,
          website: user.website,
       };

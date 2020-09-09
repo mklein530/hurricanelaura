@@ -8,7 +8,8 @@ import { FormBuilder, FormControl, Validators, ValidatorFn } from '@angular/form
 import firebase from 'firebase';
 import BaseFirestoreService from './base.service';
 import { User } from '../models/user';
-import { hasUpperCase, hasLowerCase, hasNumber } from './user-util';
+import { hasUpperCase, hasLowerCase, hasNumber, getFirebaseUserFromUserCredential } from './user-util';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,7 @@ export class UserService extends BaseFirestoreService<User> {
   cachedDetails: { email: string; password: string } = {};
   authSubscription: firebase.Unsubscribe;
   modalShowing = false;
+  fbUser: firebase.User;
 
   constructor(
     protected firestore: AngularFirestore,
@@ -49,9 +51,20 @@ export class UserService extends BaseFirestoreService<User> {
   async doAutoLogin() {
     await this.setPersistence();
     try {
-      const user = await this.autoLogin();
-      this.user = await this.getUser(user.uid);
+      try {
+        const user = await this.autoLogin();
+        this.user = await this.getUser(user.uid);
+      } catch (error) {
+        const userCred = await this.anonymouslyLogin()
+        let userEntity = await this.getUser(userCred.user.uid);
+        if (!userEntity) {
+          //@ts-ignore
+          userEntity = await this.createAnonUser(userCred.user.uid, { ...new User(), uid: userCred.user.uid });
+        }
+        this.user = userEntity;
+      }
     } catch (error) {
+      console.log(error);
       console.error('Failed to log in');
     }
     return this.user;
@@ -108,6 +121,7 @@ export class UserService extends BaseFirestoreService<User> {
       const result = await this.getByAttribute('email', '==', email);
       return result && result.length ? result[0] : null;
     }
+    this.fbUser = await this.auth.currentUser;
     return this.get(userId);
   }
 
@@ -123,7 +137,11 @@ export class UserService extends BaseFirestoreService<User> {
 
   async createUser(_user: User): Promise<User> {
     const user = _.cloneDeep(_user);
-    let userCredential = user.isAnonymous
+    let isAnonymous = false;
+    if ((await this.auth.currentUser).isAnonymous) {
+      isAnonymous = true;
+    }
+    let userCredential = isAnonymous
       ? await this.convertAnonymousUser(user.email, user.password)
       : await this.createUserWithEmail(user.email, user.password);
     const newUser = this.convertFirebaseUser(user, userCredential);
@@ -205,13 +223,23 @@ export class UserService extends BaseFirestoreService<User> {
 
   async logout() {
     await this.auth.signOut();
+    this.user = null;
+    this.fbUser = null;
   }
 
   async googleSignIn() {
     try {
       const provider = new firebase.auth.GoogleAuthProvider();
       ['email', 'profile'].forEach((scope) => provider.addScope(scope));
-      const result = await this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+      const currentUser = await this.auth.currentUser;
+      let result: firebaseAuth.UserCredential;
+      if (currentUser && this.user) {
+        result = await currentUser.linkWithPopup(provider);
+        this.user = this.convertFirebaseUser(this.user, result.user);
+        await this.updateUser(this.user.uid, JSON.parse(JSON.stringify(this.user)));
+      } else {
+        result = await this.auth.signInWithPopup(provider);
+      }
       let user = await this.getUser(result.user.uid);
       if (!user) {
         user = this.convertFirebaseUser(new User(), result.user);
@@ -220,6 +248,10 @@ export class UserService extends BaseFirestoreService<User> {
       this.user = user;
       return user;
     } catch (error) {
+      if (error && error.code === 'auth/credential-already-in-use') {
+        const user = await this.auth.signInWithCredential(error.credential);
+        this.user = await this.getUser(user.user.uid);
+      }
       console.log(error);
     }
   }
@@ -227,23 +259,28 @@ export class UserService extends BaseFirestoreService<User> {
   async facebookSignIn() {
     try {
       const provider = new firebase.auth.FacebookAuthProvider();
-      ['email', 'user_link'].forEach((scope) => provider.addScope(scope));
-      const result = await this.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+      ['email'].forEach((scope) => provider.addScope(scope));
+      const currentUser = await this.auth.currentUser;
+      let result: firebaseAuth.UserCredential;
+      if (currentUser && this.user) {
+        result = await currentUser.linkWithPopup(provider);
+        this.user = this.convertFirebaseUser(this.user, result.user);
+        await this.updateUser(this.user.uid, JSON.parse(JSON.stringify(this.user)));
+      } else {
+        result = await this.auth.signInWithPopup(provider);
+      }
       let user = await this.getUser(result.user.uid);
-
       if (!user) {
-        let avatar = '';
-        //@ts-ignore
-        if (result.additionalUserInfo.profile.picture && result.additionalUserInfo.profile.picture.data) {
-          //@ts-ignore
-          avatar = result.additionalUserInfo.profile.picture.data.url || result.user.photoURL;
-        }
-        user = this.convertFirebaseUser({ ...new User(), avatar }, result.user);
+        user = this.convertFirebaseUser(new User(), result.user);
         await this.create(JSON.parse(JSON.stringify(user)), user.uid);
       }
       this.user = user;
       return user;
     } catch (error) {
+      if (error && error.code === 'auth/credential-already-in-use') {
+        const user = await this.auth.signInWithCredential(error.credential);
+        this.user = await this.getUser(user.user.uid);
+      }
       console.log(error);
     }
   }

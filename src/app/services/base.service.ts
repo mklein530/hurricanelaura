@@ -50,7 +50,9 @@ export default class BaseFirestoreService<T extends BaseEntity> {
 
   async create(object: T, _id?: string) {
     const id = _id ? _id : this.createId();
-    return this.collection.doc(id).set({ ...object, id });
+    const user = { ...object, id };
+    await this.collection.doc(id).set(user);
+    return user;
   }
 
   async add(object: T) {
