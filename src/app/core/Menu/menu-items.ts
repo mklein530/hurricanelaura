@@ -22,6 +22,12 @@ const MENUITEMS = [
     ]
   },
   {
+    state: ['admin', 'list'],
+    name: 'Dashboard',
+    type: 'link',
+    // children: []
+  },
+  {
     state: ['listing', 'list', 'full-width'],
     name: 'Requests',
     type: 'link',
@@ -50,8 +56,8 @@ export class MenuItems {
   user: User = null;
   collapsed = false;
   withRegistration = [...MENUITEMS, {
-    state: ['session', 'signup'],
-    name: 'Register',
+    state: ['session', 'login'],
+    name: 'Login',
     type: 'link',
     children: []
   }];
@@ -74,12 +80,6 @@ export class MenuItems {
     children: [],
     click: () => this.userService.logout()
   }
-  dashboard = {
-    state: ['admin', 'list'],
-    name: 'Dashboard',
-    type: 'link',
-    // children: []
-  }
 
   constructor(protected userService: UserService) {
     this.user = this.userService.user;
@@ -95,7 +95,7 @@ export class MenuItems {
   }
 
   getAll() {
-    const collapsedItems = this.collapsed ? [this.addRequest, this.dashboard, this.profile] : [];
+    const collapsedItems = this.collapsed ? [this.addRequest, this.profile] : [];
     if (this.user && this.collapsed) {
       collapsedItems.push(this.logout);
     }

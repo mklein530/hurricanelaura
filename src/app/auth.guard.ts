@@ -9,7 +9,6 @@ const canAccess = ['home', 'login', 'signup', 'policy', 'terms'];
 export class AuthGuard implements CanActivate {
   constructor(private userService: UserService, private myRoute: Router) { }
   async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
-    console.log(next, state);
     if (this.userService.user) {
       return true;
     }
